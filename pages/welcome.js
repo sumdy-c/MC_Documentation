@@ -1,3 +1,13 @@
+// дополнить реализацию след:
+
+// .addMutateClass('test')
+// const context = MC.createContext({ css: 'file.css', key: 'id_context' });
+// const contextMap = MC.getContext('id_context').getMap();
+// contextMap.selectorOne.mutate((sel) => { return $(sel).html('new_text'); })
+
+// const anonMap =  MC.getContext().getMap();
+
+
 const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
 
