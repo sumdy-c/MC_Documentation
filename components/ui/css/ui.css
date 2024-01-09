@@ -1,0 +1,19 @@
+.ui_info_block {
+    display: flex;
+    padding: 1%;
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    background-color: #cdecf5;
+    align-items: center;
+    margin: 25px 0px;
+}
+
+.ui_alert_block {
+    display: flex;
+    padding: 1%;
+    border-radius: 10px;
+    border: 1px solid #cfcfcf;
+    background-color: #f5cdcd;
+    align-items: center;
+    margin: 25px 0px;
+}
