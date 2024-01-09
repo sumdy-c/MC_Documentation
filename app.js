@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootEl = $('#root');
     const APP = MC.createContext();
     const PAGES = MC.createState({
-        link: 'welcome',
+        link: 'documentation',
         back: false,
     });
 

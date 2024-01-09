@@ -4,7 +4,7 @@ const AsideСontents = MC.createState({
         { 
             text: 'Вступление',
             value: 'start',
-            active: true
+            active: false
         },
         { 
             text: 'Установка',
@@ -31,11 +31,16 @@ const AsideСontents = MC.createState({
             value: 'improvement',
             active: false
         },
+        { 
+            text: 'Тестовый раздел',
+            value: 'test',
+            active: true
+        },
     ]
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('start');
+const ContentDoc = MC.createState('test');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
@@ -92,6 +97,8 @@ const DocumentationPage = (PAGES) => {
                             return StylesBlock();
                         case 'improvement':
                             return ImprovementBlock();
+                        case 'test':
+                            return TestBlock();
                     }
                 
                 }, [ContentDoc])
