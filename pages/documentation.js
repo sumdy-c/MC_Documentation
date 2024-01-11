@@ -4,7 +4,7 @@ const AsideСontents = MC.createState({
         { 
             text: 'Вступление',
             value: 'start',
-            active: true
+            active: false
         },
         { 
             text: 'Установка',
@@ -12,12 +12,22 @@ const AsideСontents = MC.createState({
             active: false
         },
         { 
-            text: 'Контейнеризация',
+            text: 'Контейнеры',
+            value: 'fn-containers',
+            active: false
+        },
+        { 
+            text: 'Контейнеры: Часть 2',
+            value: 'fn-containers-deep',
+            active: true
+        },
+        { 
+            text: 'Компоненты',
             value: 'containers',
             active: false
         },
         { 
-            text: 'Обновление контейнеров',
+            text: 'Работа с обновлением',
             value: 'containers_update',
             active: false   
         },
@@ -40,7 +50,7 @@ const AsideСontents = MC.createState({
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('start');
+const ContentDoc = MC.createState('fn-containers-deep');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
@@ -82,15 +92,20 @@ const DocumentationPage = (PAGES) => {
             }, [AsideСontents], Aside),
 
             $('<div>').addClass('doc_content_block').append(
-                $((state) => {  
+                $((state) => {
+                    PrismReInit();
                     const [ content_doc ] = state;
                     switch(content_doc) {
                         case 'start':
                             return StartBlock();
                         case 'install':
                             return InstallBlock();
-                        case 'containers':
+                        case 'fn-containers':
                             return ContainersBlock();
+                        case 'fn-containers-deep':
+                            return ContainersBlockDeep();
+                        case 'containers':
+                            return ComponentBlock();
                         case 'containers_update':
                             return UpdateBlock();
                         case 'guard_styles':
@@ -100,7 +115,6 @@ const DocumentationPage = (PAGES) => {
                         case 'test':
                             return TestBlock();
                     }
-                
                 }, [ContentDoc], Content)
             ),
         ),

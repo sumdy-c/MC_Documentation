@@ -1,13 +1,21 @@
+const PrismReInit = () => {
+    setTimeout(() => {
+        Prism.highlightAll();
+        Prism.plugins
+    }, 5);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const rootEl = $('#root');
     const APP = MC.createContext();
     const PAGES = MC.createState({
-        link: 'welcome',
+        link: 'documentation',
         back: false,
     });
 
     rootEl.append(
         $((state) => {
+            PrismReInit();
             const [ pages ] = state;
             switch(pages.link) {
                 case 'welcome':
@@ -17,6 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'api':
                     return ExamplePage(PAGES);
             };
-        }, [PAGES], APP)
+        }, [PAGES], APP),
     );
 });

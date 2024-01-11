@@ -11,3 +11,25 @@ const alertBlock = (element) => {
         element
     )
 }
+
+const codeBlock = (stringCode) => {
+    return $('<div>').addClass('ui_code-block').append(
+        $('<pre>').append(
+            $('<code>')
+                .addClass('language-javascript')
+                .append(stringCode)
+        )
+    )
+}
+
+const text = (text) => {
+    return $('<span>').addClass('doc_text').text(text);
+};
+
+const title = (text) => {
+    return $('<span>').addClass('doc_title').text(text);
+}
+
+const subTitle = (text) => {
+    return $('<span>').addClass('doc_subtitle').text(text);
+}
