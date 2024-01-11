@@ -177,9 +177,11 @@
   user-select: none;
   cursor: pointer;
   margin: 15px;
+  opacity: 0.8;
 }
 
 .main__welcome_content_card_button:hover {
   transform: scale(1.05);
   transition: 50ms;
+  opacity: 1;
 }

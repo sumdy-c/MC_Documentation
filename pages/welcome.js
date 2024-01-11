@@ -19,7 +19,7 @@ const WELC_CONTENT = MC.createState({
     introduction: true,
     button_array: [
         {
-            text: 'Документация',
+            text: 'Учебник',
             srcImg: './asset/book.png',
             control: 'documentation'
         },

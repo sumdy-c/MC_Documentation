@@ -17,25 +17,20 @@ const AsideСontents = MC.createState({
             active: false
         },
         { 
-            text: 'Контейнеры: Часть 2',
-            value: 'fn-containers-deep',
-            active: true
-        },
-        { 
             text: 'Компоненты',
-            value: 'containers',
-            active: false
+            value: 'component',
+            active: true
         },
         { 
             text: 'Работа с обновлением',
             value: 'containers_update',
             active: false   
         },
-        { 
-            text: 'Безопасная стилизация',
-            value: 'guard_styles',
-            active: false
-        },
+        // { 
+        //     text: 'Безопасная стилизация',
+        //     value: 'guard_styles',
+        //     active: false
+        // },
         { 
             text: 'Развитие',
             value: 'improvement',
@@ -50,7 +45,7 @@ const AsideСontents = MC.createState({
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('fn-containers-deep');
+const ContentDoc = MC.createState('component');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
@@ -61,7 +56,7 @@ const DocumentationPage = (PAGES) => {
                     PAGES.set({ link: 'welcome', back: true });
                 })
             ),
-            $('<div>').addClass('main__welcome_top_bar_live_text').html('Документация')
+            $('<div>').addClass('main__welcome_top_bar_live_text').html('Учебник')
         ),
 
         $('<div>').css({
@@ -102,9 +97,7 @@ const DocumentationPage = (PAGES) => {
                             return InstallBlock();
                         case 'fn-containers':
                             return ContainersBlock();
-                        case 'fn-containers-deep':
-                            return ContainersBlockDeep();
-                        case 'containers':
+                        case 'component':
                             return ComponentBlock();
                         case 'containers_update':
                             return UpdateBlock();
