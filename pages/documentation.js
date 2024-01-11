@@ -4,7 +4,7 @@ const AsideСontents = MC.createState({
         { 
             text: 'Вступление',
             value: 'start',
-            active: false
+            active: true
         },
         { 
             text: 'Установка',
@@ -34,13 +34,13 @@ const AsideСontents = MC.createState({
         { 
             text: 'Тестовый раздел',
             value: 'test',
-            active: true
+            active: false
         },
     ]
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('test');
+const ContentDoc = MC.createState('start');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
@@ -59,7 +59,7 @@ const DocumentationPage = (PAGES) => {
             height: 'calc(100% - 50px)'
 
         }).append(
-            $.MC(Aside, (state) => {
+            $((state) => {
 
                 const [ aside_content ] = state;
 
@@ -79,10 +79,10 @@ const DocumentationPage = (PAGES) => {
                         });
                     }),
                 )
-            }, [AsideСontents]),
+            }, [AsideСontents], Aside),
 
             $('<div>').addClass('doc_content_block').append(
-                $.MC(Content, (state) => {  
+                $((state) => {  
                     const [ content_doc ] = state;
                     switch(content_doc) {
                         case 'start':
@@ -101,7 +101,7 @@ const DocumentationPage = (PAGES) => {
                             return TestBlock();
                     }
                 
-                }, [ContentDoc])
+                }, [ContentDoc], Content)
             ),
         ),
 

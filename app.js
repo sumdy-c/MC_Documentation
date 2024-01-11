@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootEl = $('#root');
     const APP = MC.createContext();
     const PAGES = MC.createState({
-        link: 'documentation',
+        link: 'welcome',
         back: false,
     });
 
     rootEl.append(
-        $.MC(APP, (state) => {
+        $((state) => {
             const [ pages ] = state;
             switch(pages.link) {
                 case 'welcome':
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'api':
                     return ExamplePage(PAGES);
             };
-
-        }, [PAGES])
+        }, [PAGES], APP)
     );
 });

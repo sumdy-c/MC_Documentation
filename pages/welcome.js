@@ -1,12 +1,3 @@
-// дополнить реализацию след:
-
-// .addMutateClass('test')
-// const context = MC.createContext({ css: 'file.css', key: 'id_context' });
-// const contextMap = MC.getContext('id_context').getMap();
-// contextMap.selectorOne.mutate((sel) => { return $(sel).html('new_text'); })
-// const anonMap =  MC.getContext().getMap(); ...
-
-
 const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
 
@@ -143,36 +134,36 @@ const WelcomePage = (PAGES, back) => {
 
     return $('<div>').addClass('main__welcome').append(
 
-        $.MC(WELCOME, (state) => {
+        $((state) => {
             const [ welc_content ] = state;
             return $('<div>').append(
                 $('<div>').addClass(!welc_content.introduction ? 'main__welcome_top_bar' : null).append(
                     
-                    $.MC(WELCOME, (state) => {
+                    $((state) => {
                         const [ anim_title ] = state;
                         return $('<div>').css({ width: 'max-content' }).append(
                             $('<div>').addClass(anim_title.class_container).css({ left: `${anim_title.leftpos}%` }).append(
                                 $('<span>').css({ color: anim_title.color }).addClass(anim_title.class_text).text(`${anim_title.firstText} ${anim_title.secondText}`)
                             )
                         )
-                    }, [ANIM_TITLE]),
+                    }, [ANIM_TITLE], WELCOME),
 
-                    $.MC(WELCOME, (state) => {
+                    $((state) => {
                         const [ live_text ] = state;
                         if(!live_text.ready) {
                             return null;
-                        }
+                        };
 
                         return $('<div>').addClass('main__welcome_top_bar_live_text').html(live_text.text)
 
-                    }, [LiveText])
+                    }, [LiveText], WELCOME)
 
                 )
 
             )
-        }, [WELC_CONTENT]),
+        }, [WELC_CONTENT], WELCOME),
 
-        $.MC(WELCOME_CONTENT, (state) => {
+        $((state) => {
             const [ welc_content ] = state;
 
             if(welc_content.introduction) {
@@ -207,7 +198,7 @@ const WelcomePage = (PAGES, back) => {
                                 'color': '#0000009c',
                                 'height': 'max-content',
                                 'width': 'max-content'
-                            }).text('Инструмент для легкой интеграции компонетного подхода в новые или существующие проекты с использованием библиотеки jQuery, организация легкой и безопасной мутации стилей для изоляции css без использования препроцессоров c открытым исходным кодом.'),
+                            }).text('Инструмент для легкой интеграции компонетного подхода в новые или существующие проекты с использованием библиотеки jQuery c открытым исходным кодом.'),
                         ),
 
                         $('<div>').css({ margin: '15px' }).append(
@@ -253,15 +244,12 @@ const WelcomePage = (PAGES, back) => {
                     )
                 ),
 
-                $.MC(WELCOME_CONTENT, (state) => {
+                $((state) => {
                     const [ preview ] = state;
-                    
-                    return $('<div>').append(
-
-                    );
-                }, [PREVIEW])
+                    return $('<div>').append();
+                }, [PREVIEW], WELCOME_CONTENT)
             )
                     
-        }, [WELC_CONTENT]),
+        }, [WELC_CONTENT], WELCOME_CONTENT),
     );
 };
