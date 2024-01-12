@@ -4,30 +4,35 @@ class ExampleTwo extends MC {
     }
 
     render(states, props) {
-        console.log(props);
-        return $('<div>').html(props);
+        console.log('дочерний')
+        const [ glob ] = states.global;
+
+        return $('<div>').html(glob);
     }
 };
 
 class Example extends MC {
     state;
+    glob;
     constructor(props) {
         super();
         this.state = super.state(1);
-        // console.log(this.state)
+        this.glob = MC.createState(1);
     }
 
     update() {
-        this.state.set(this.state.get() + 1);
-    }
+        // this.state.set(this.state.get() + 1);
+        this.glob.set(this.glob.get() + 1);
+    };
 
     render(states, props) {
-        // console.log('render');
+        console.log('родитель')
         const [ loc ] = states.local;
         return $('<div>').html(props).append(
-            [1, 2, 3, 4, 5].map((item, iter) => {
+            [1, 2, 23].map((item, iter) => {
                 return $(ExampleTwo, MC.Props({
-                    props: loc
+                    props: loc,
+                    states: [this.glob]
                 }), `ex${iter}`);
             }),
             $('<button>').text('test').on('click', () => this.update())
