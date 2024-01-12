@@ -4,12 +4,13 @@ class Example extends MC {
     }
 
     render(states, props) {
-        console.log(states);
+        console.log(states, props);
         return $('<div>').html('Я компонент!');
     }
 };
 
 const state = MC.createState('Привет');
+const context = MC.createContext();
 const state2 = MC.createState('Вуаля');
 
 const TestBlock = () => {
@@ -19,6 +20,7 @@ const TestBlock = () => {
         $(Example, MC.Props({
             props: 'Hi i props!',
             states: [state, state2],
+            context: context
         }), 'key'),
     )
 };
