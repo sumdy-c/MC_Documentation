@@ -4,7 +4,7 @@ const AsideСontents = MC.createState({
         { 
             text: 'Вступление',
             value: 'start',
-            active: false
+            active: true
         },
         { 
             text: 'Установка',
@@ -24,7 +24,7 @@ const AsideСontents = MC.createState({
         { 
             text: 'Работа с обновлением',
             value: 'containers_update',
-            active: true   
+            active: false   
         },
         // { 
         //     text: 'Безопасная стилизация',
@@ -45,7 +45,7 @@ const AsideСontents = MC.createState({
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('containers_update');
+const ContentDoc = MC.createState('test');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
