@@ -5,9 +5,11 @@ class ExampleTwo extends MC {
 
     render(states, props) {
         console.log('дочерний')
-        const [ glob ] = states.global;
+        // const [ glob ] = states.global;
 
-        return $('<div>').html(glob);
+        return $('<div>').append(
+            $('<button>').text('test').on('click', () => props.set(Date.now()))
+        );
     }
 };
 
@@ -16,7 +18,7 @@ class Example extends MC {
     glob;
     constructor(props) {
         super();
-        this.state = super.state(1);
+        this.state = super.state('test');
         this.glob = MC.createState(1);
     }
 
@@ -28,14 +30,14 @@ class Example extends MC {
     render(states, props) {
         console.log('родитель')
         const [ loc ] = states.local;
-        return $('<div>').html(props).append(
+        return $('<div>').html(loc).append(
             [1, 2, 23].map((item, iter) => {
                 return $(ExampleTwo, MC.Props({
-                    props: loc,
+                    props: this.state,
                     states: [this.glob]
                 }), `ex${iter}`);
             }),
-            $('<button>').text('test').on('click', () => this.update())
+            // $('<button>').text('test').on('click', () => this.update())
         );
     }
 };

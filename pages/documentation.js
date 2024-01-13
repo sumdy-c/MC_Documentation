@@ -26,16 +26,6 @@ const AsideСontents = MC.createState({
             value: 'containers_update',
             active: false   
         },
-        // { 
-        //     text: 'Безопасная стилизация',
-        //     value: 'guard_styles',
-        //     active: false
-        // },
-        { 
-            text: 'Развитие',
-            value: 'improvement',
-            active: false
-        },
         { 
             text: 'Тестовый раздел',
             value: 'test',
@@ -45,7 +35,7 @@ const AsideСontents = MC.createState({
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('test');
+const ContentDoc = MC.createState('containers_update');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
