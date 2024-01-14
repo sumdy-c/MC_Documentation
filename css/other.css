@@ -1,0 +1,14 @@
+.link {
+    width: max-content;
+    padding: 1%;
+    margin: 2%;
+    border-radius: 15px;
+    font-size: 19px;
+    font-family: math;
+    color: black;
+}
+
+.link:hover {
+    transition: 100ms;
+    background-color: rgba(129, 240, 255, 0.4);
+}
