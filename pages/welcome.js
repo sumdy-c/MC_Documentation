@@ -1,6 +1,6 @@
 const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
-
+const version = '0.0.0 (pre-alpha)';
 const ANIM_TITLE = MC.createState({
     color: 'black',
     class_container: 'main__welcome_title_container_pos1',
@@ -26,7 +26,7 @@ const WELC_CONTENT = MC.createState({
         {
             text: 'API',
             srcImg: './asset/api.png',
-            control: false
+            control: 'api'
         },
         {
             text: 'GitHub',
@@ -40,9 +40,6 @@ const WELC_CONTENT = MC.createState({
         }
     ]
 });
-
-const PREVIEW =  MC.createState('sdfds');
-
 
 const WelcomePage = (PAGES, back) => {
 
@@ -136,30 +133,37 @@ const WelcomePage = (PAGES, back) => {
 
         $((state) => {
             const [ welc_content ] = state;
-            return $('<div>').append(
+            return $('<div>').css({ display: 'flex' }).append(
                 $('<div>').addClass(!welc_content.introduction ? 'main__welcome_top_bar' : null).append(
-                    
-                    $((state) => {
-                        const [ anim_title ] = state;
-                        return $('<div>').css({ width: 'max-content' }).append(
-                            $('<div>').addClass(anim_title.class_container).css({ left: `${anim_title.leftpos}%` }).append(
-                                $('<span>').css({ color: anim_title.color }).addClass(anim_title.class_text).text(`${anim_title.firstText} ${anim_title.secondText}`)
+                    $('<div>').css({
+                        display: 'flex',
+                        'align-items': 'center'
+                    }).append(
+                        $((state) => {
+                            const [ anim_title ] = state;
+                            return $('<div>').css({ width: 'max-content' }).append(
+                                $('<div>').addClass(anim_title.class_container).css({ left: `${anim_title.leftpos}%` }).append(
+                                    $('<span>').css({ color: anim_title.color }).addClass(anim_title.class_text).text(`${anim_title.firstText} ${anim_title.secondText}`)
+                                )
                             )
-                        )
-                    }, [ANIM_TITLE], WELCOME),
-
-                    $((state) => {
-                        const [ live_text ] = state;
-                        if(!live_text.ready) {
-                            return null;
-                        };
-
-                        return $('<div>').addClass('main__welcome_top_bar_live_text').html(live_text.text)
-
-                    }, [LiveText], WELCOME)
-
+                        }, [ANIM_TITLE], WELCOME),
+    
+                        $((state) => {
+                            const [ live_text ] = state;
+                            if(!live_text.ready) {
+                                return null;
+                            };
+    
+                            return $('<div>').addClass('main__welcome_top_bar_live_text').html(live_text.text)
+                            
+                        }, [LiveText], WELCOME),
+                    ),
+                   
+                    !welc_content.introduction && $('<div>').css({
+                        margin: '0 15px',
+                        opacity: '0.6'
+                    }).text(version)
                 )
-
             )
         }, [WELC_CONTENT], WELCOME),
 
@@ -244,10 +248,6 @@ const WelcomePage = (PAGES, back) => {
                     )
                 ),
 
-                $((state) => {
-                    const [ preview ] = state;
-                    return $('<div>').append();
-                }, [PREVIEW], WELCOME_CONTENT)
             )
                     
         }, [WELC_CONTENT], WELCOME_CONTENT),

@@ -21,21 +21,21 @@ const AsideСontents = MC.createState({
             value: 'component',
             active: false
         },
-        { 
-            text: 'Работа с обновлением',
-            value: 'containers_update',
-            active: false   
-        },
-        { 
-            text: 'Тестовый раздел',
-            value: 'test',
-            active: false
-        },
+        // { 
+        //     text: 'Что-то еще ?',
+        //     value: 'containers_update',
+        //     active: false   
+        // },
+        // { 
+        //     text: 'Тестовый раздел',
+        //     value: 'test',
+        //     active: false
+        // },
     ]
 });
 
 const Content = MC.createContext();
-const ContentDoc = MC.createState('test');
+const ContentDoc = MC.createState('start');
 
 const DocumentationPage = (PAGES) => {
     return $('<div>').addClass('doc__main').append(   
@@ -46,7 +46,7 @@ const DocumentationPage = (PAGES) => {
                     PAGES.set({ link: 'welcome', back: true });
                 })
             ),
-            $('<div>').addClass('main__welcome_top_bar_live_text').html('Учебник')
+            $('<div>').addClass('main__welcome_top_bar_live_text').html('Учебник'),
         ),
 
         $('<div>').css({
