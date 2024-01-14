@@ -31,7 +31,7 @@ const WELC_CONTENT = MC.createState({
         {
             text: 'GitHub',
             srcImg: './asset/github.png',
-            control: false
+            control: { go: 'https://github.com/sumdy-c/Micro_Component' }
         },
         {
             text: 'Развитие',
@@ -46,8 +46,8 @@ const WelcomePage = (PAGES, back) => {
     const welc_obj = WELC_CONTENT.get();
 
     welc_obj.button_array.forEach(btn => {
-        if(!btn.control) {
-            btn.link = () => alert('В разработке');
+        if(btn.control.go) {
+            btn.link = () => window.location.href = btn.control.go;
         } else {
             btn.link = () => PAGES.set({ link: btn.control, back: true });
         }
