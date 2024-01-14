@@ -36,7 +36,7 @@ const WELC_CONTENT = MC.createState({
         {
             text: 'Развитие',
             srcImg: './asset/improvement.png',
-            control: false
+            control: 'dev'
         }
     ]
 });

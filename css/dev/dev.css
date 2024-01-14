@@ -1,0 +1,10 @@
+.dev__container {
+    height: calc(100% - 50px);
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0%;
+    /* align-items: center; */
+    background: linear-gradient(#fff1fd, #fffddd);
+}

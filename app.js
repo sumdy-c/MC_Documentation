@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootEl = $('#root');
     const APP = MC.createContext();
     const PAGES = MC.createState({
-        link: 'api',
+        link: 'welcome',
         back: false,
     });
 
@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     return DocumentationPage(PAGES);
                 case 'api':
                     return APIPage(PAGES);
+                case 'dev':
+                    return DevelopmentPage(PAGES);
             };
         }, [PAGES], APP),
     );
