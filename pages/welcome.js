@@ -1,22 +1,64 @@
 const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
 const version = '0.0.0 (pre-alpha)';
+
+// с анимацией
+// const ANIM_TITLE = MC.createState({
+//     color: 'black',
+//     class_container: 'main__welcome_title_container_pos1',
+//     class_text: 'main__welcome_title_animate',
+//     firstText: 'Micro',
+//     secondText: 'Component',
+//     leftpos: 35,
+// });
+
+// const LiveText = MC.createState({
+//     ready: false,
+//     text: 'Привет! Надеюсь вы хорошо проведёте тут время!'
+// });
+
+// const WELC_CONTENT = MC.createState({
+//     introduction: true,
+//     button_array: [
+//         {
+//             text: 'Учебник',
+//             srcImg: './asset/book.png',
+//             control: 'documentation'
+//         },
+//         {
+//             text: 'API',
+//             srcImg: './asset/api.png',
+//             control: 'api'
+//         },
+//         {
+//             text: 'GitHub',
+//             srcImg: './asset/github.png',
+//             control: { go: 'https://github.com/sumdy-c/Micro_Component' }
+//         },
+//         {
+//             text: 'Развитие',
+//             srcImg: './asset/improvement.png',
+//             control: 'dev'
+//         }
+//     ]
+// });
+
 const ANIM_TITLE = MC.createState({
     color: 'black',
-    class_container: 'main__welcome_title_container_pos1',
-    class_text: 'main__welcome_title_animate',
-    firstText: 'Micro',
-    secondText: 'Component',
+    class_container: 'main__welcome_title_container',
+    class_text: 'main__welcome_title_logo',
+    firstText: 'MC',
+    secondText: '',
     leftpos: 35,
 });
 
 const LiveText = MC.createState({
-    ready: false,
+    ready: true,
     text: 'Привет! Надеюсь вы хорошо проведёте тут время!'
 });
 
 const WELC_CONTENT = MC.createState({
-    introduction: true,
+    introduction: false,
     button_array: [
         {
             text: 'Учебник',
@@ -116,7 +158,7 @@ const WelcomePage = (PAGES, back) => {
                                         live_text_obj.text = getRandomWord();
                                         LiveText.set(live_text_obj);
                                     }, 4500);
-                            }, 530);
+                            }, 400);
                         }, 200);
                         return;
                     };
@@ -126,7 +168,7 @@ const WelcomePage = (PAGES, back) => {
                     obj.secondText = obj.secondText.slice(0, -2);
                     ANIM_TITLE.set(obj);
                 }, 100);
-        }, 1500);
+        }, 700);
     }
 
     return $('<div>').addClass('main__welcome').append(
@@ -185,7 +227,14 @@ const WelcomePage = (PAGES, back) => {
                             'font-size': '25px',
                             'font-weight': 'bold',
                         }).text('Micro Component!'),
-
+                        $('<div>').css({ 
+                            'margin-top': '60px',
+                            width: '70%',
+                            display: 'flex',
+                            'justify-content': 'center'
+                        }).append(
+                            codeBlock(` npm i jquery-micro_component `)
+                        ),
                     ), 
 
                     $('<div>').addClass('main__welcome_content_card').append(

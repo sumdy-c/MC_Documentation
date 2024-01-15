@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const APP = MC.createContext();
     const PAGES = MC.createState({
         link: 'welcome',
-        back: false,
+        back: true, // отключили анимацию
     });
 
     rootEl.append(
