@@ -1,7 +1,7 @@
 class APICard extends MC {
     constructor() {
         super();
-        this.viewCode = super.state(false);
+        this.viewCode = super.state(true);
     };
 
     setViewCode() {
