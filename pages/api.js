@@ -30,8 +30,8 @@ const api_information = [
     {
         title: '$(fn: function | MCClass, props: MCState | MC.Props,  context: MCContext | null): HTML',
         realization: 
-`$((state) => null);
-$(ExampleClass, 'example_key');`,
+`$.MC((state) => null);
+$.MC(ExampleClass, 'example_key');`,
         description: 'служит в качестве настраиваемой функции jQuery, адаптированной для работы с абстракциями Micro Component. Принимает такие параметры, как функция или класс Micro Component, состояние или свойства Micro Component, а также заданный контекст. Предназначена для беспрепятственной интеграции и манипулирования компонентами в определенной среде.',
     },
     {

@@ -3,7 +3,7 @@ const ContainersBlock = () => {
         title('Функциональные контейнеры: Начало работы'),
         text('В данной документации было решено начать с контейнеров функций. Они предоставляют широкий спектр возможностей для изменения подхода к построению вашего приложения и обеспечивают легкий и доступный опыт программирования на Micro Component. Для начала рассмотрим, что представляют собой контейнеры. Простейший способ показать их структуру — это начать без дополнительных абстракций, на что мы и посмотрим сейчас.'),
         
-codeBlock(`$(() => {
+codeBlock(`$.MC(() => {
     return $("&lt;div&gt;").text('Я Функциональный компонент!');
 });`),
 
@@ -15,7 +15,7 @@ setTimeout(() => {
     myState.set('Меня изменили!');
 }, 1000);
 
-$((state) => {
+$.MC((state) => {
     // state = ['Привет, я создан!']
     return $("&lt;div&gt;").text(state);
 }, [myState]);
@@ -48,7 +48,7 @@ setTimeout(() => {
     myState.set({ parent: 'Меня изменили!', child: 'Я тоже изменился.'})
 }, 1000);
 
-$((state) => {
+$.MC((state) => {
     const [ el ] = state;
     return $("&lt;div&gt;").text(el.parent).append(
         $("&lt;span&gt;").text(el.child)
@@ -87,7 +87,7 @@ setTimeout(() => {
     myState.set({ parent: 'Меня изменили!', child: 'Я тоже изменился.'})
 }, 1000);
 
-$((state) => {
+$.MC((state) => {
     const [ el ] = state;
     return $("&lt;div&gt;").text(el.parent).append(
         $("&lt;span&gt;").text(el.child)
@@ -111,7 +111,7 @@ setTimeout(() => {
     myState.set('Меня изменили!');
 }, 1000);
 
-$((state) => {
+$.MC((state) => {
     // state = ['Привет, я создан!']
     return $("&lt;div&gt;").text(state);
 }, [myState], context);
@@ -129,12 +129,12 @@ setTimeout(() => {
     myState.set('Меня изменили!');
 }, 1000);
 
-$((state) => {
+$.MC((state) => {
     // state = ['Привет, я создан!']
     return $("&lt;div&gt;").text(state);
 }, [myState], context);
 
-$((state) => {
+$.MC((state) => {
     // state = ['Привет, я создан!']
     return $("&lt;div&gt;").text(state);
 }, [myState], context2);
@@ -169,7 +169,7 @@ function loadPersons() {
     });
 };
 $('#wrapper').append(
-    $((state)=> {
+    $.MC((state)=> {
         const [ persons, view ] = state;
 
         if(!view || !persons.length) {
@@ -234,11 +234,11 @@ const childState = MC.createState({
 });
 
 // Обычное создание динамического контейнера
-$((state) => {
+$.MC((state) => {
     const [ main ] = state; 
     return $('&lt;div&gt;').text(main.text).addClass(main.cssClass).append(
         // Добавление дочернего динамического контейнера
-        $((state) => {
+        $.MC((state) => {
             const [ child ] = state;
             return $('&lt;div&gt;').text(child.text).addClass(child.cssClass)
         }, [childState], context)
@@ -256,10 +256,10 @@ $((state) => {
         text('Соответственно, если мы поместим mainState в дочерний контейнер как зависимость, первой итерацией будет обновление своего и дочернего контейнера, а затем только дочернего.'),
 
         text('Исходя из этого, у внимательного читателя может возникнуть вопрос: "Как мне извлечь данные из родительского контроллера в дочернем элементе?" Логично было бы предположить, что это возможно просто передачей реквизита из родителя.'),
-codeBlock(`$((state) => {
+codeBlock(`$.MC((state) => {
     const [ main ] = state; 
     return $('&lt;div&gt;').text(main.text).addClass(main.cssClass).append(
-        $((state) => {
+        $.MC((state) => {
             const [ child ] = state;
             // Это неверный подход
             return $('&lt;div&gt;').text(child.text).addClass(child.cssClass).append('&lt;div&gt;').text('Мой родитель говорит ' + main.text)
@@ -269,10 +269,10 @@ codeBlock(`$((state) => {
 
         text('Мы действительно получим на вход данные, но проблема в том, что не сможем их актуализировать. Контейнер, хоть и дочерний, достаточно самостоятельный, чтобы определить свой приходящий реквизит. Поэтому он сохранит значение этой переменной у себя в памяти один раз и будет использовать его при собственном обновлении, независимо от того, кто его обновил - родитель или зависимость.'),
         text('Таким образом, если вам нужно использовать данные родителя в дочернем контейнере и обновлять их в соответствии с изменениями в родительском контроллере, рекомендуется явно запрашивать актуальную информацию у родителя и передавать ее в дочерний контейнер.'),
-codeBlock(`$((state) => {
+codeBlock(`$.MC((state) => {
     const [ main ] = state; 
     return $('&lt;div&gt;').text(main.text).addClass(main.cssClass).append(
-        $((state) => {
+        $.MC((state) => {
             const [ child ] = state;
             // Так мы будем знать актуальное значение, при любой операции обновления
             const main = mainState.get();
@@ -307,8 +307,8 @@ const Button = (state) => {
 };
 
 // Это не будет работать
-$(Button, [btnOne], context);
-$(Button, [btnTwo], context);`),
+$.MC(Button, [btnOne], context);
+$.MC(Button, [btnTwo], context);`),
 
     text('Такая реализация очень удобна для создания описательного кода. Однако, при создании элемента он будет ссылаться на первый компонент, следовательно, мы не получим обновлений для последующих. Чтобы избежать такого поведения, вы можете определить другую область хранения и исключить их перекрытие - тогда всё будет работать.'),
 
@@ -340,9 +340,9 @@ const Button = (state) => {
 };
 
 // Мы определили их в разных контекстах и теперь всё будет работать.
-$(Button, [btnOne], context);
-$(Button, [btnTwo], context2);
-$(Button, [btnThree]);
+$.MC(Button, [btnOne], context);
+$.MC(Button, [btnTwo], context2);
+$.MC(Button, [btnThree]);
 `),
         text('Обратите внимание, что мы определили одну из кнопок в анонимном контексте. Вид контекста в данном случае не имеет решающей роли, главное, чтобы у них была разная область хранения.'),
         

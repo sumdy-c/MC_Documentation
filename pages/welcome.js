@@ -2,47 +2,6 @@ const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
 const version = '0.0.0 (pre-alpha)';
 
-// с анимацией
-// const ANIM_TITLE = MC.createState({
-//     color: 'black',
-//     class_container: 'main__welcome_title_container_pos1',
-//     class_text: 'main__welcome_title_animate',
-//     firstText: 'Micro',
-//     secondText: 'Component',
-//     leftpos: 35,
-// });
-
-// const LiveText = MC.createState({
-//     ready: false,
-//     text: 'Привет! Надеюсь вы хорошо проведёте тут время!'
-// });
-
-// const WELC_CONTENT = MC.createState({
-//     introduction: true,
-//     button_array: [
-//         {
-//             text: 'Учебник',
-//             srcImg: './asset/book.png',
-//             control: 'documentation'
-//         },
-//         {
-//             text: 'API',
-//             srcImg: './asset/api.png',
-//             control: 'api'
-//         },
-//         {
-//             text: 'GitHub',
-//             srcImg: './asset/github.png',
-//             control: { go: 'https://github.com/sumdy-c/Micro_Component' }
-//         },
-//         {
-//             text: 'Развитие',
-//             srcImg: './asset/improvement.png',
-//             control: 'dev'
-//         }
-//     ]
-// });
-
 const ANIM_TITLE = MC.createState({
     color: 'black',
     class_container: 'main__welcome_title_container',
@@ -122,57 +81,17 @@ const WelcomePage = (PAGES, back) => {
     }
 
     const getRandomWord = getRandomWordGenerator();
-    // анимации по таймауту, спорное решение нужное тут для показательной нагрузки на рендер
-    if(!back) {
+    if(!back){
         setTimeout(() => {
-            const obj = ANIM_TITLE.get();
-            obj.class_text = 'main__welcome_title';
-            ANIM_TITLE.set(obj);
-                const animateInterval = setInterval(() => {
-                    const obj = ANIM_TITLE.get();
-                    if(obj.firstText.length === 1) {
-                        clearInterval(animateInterval);
-                        obj.firstText = 'MC';
-                        obj.secondText = '';
-                        ANIM_TITLE.set(obj);
-
-                        setTimeout(() => {
-                            const obj = ANIM_TITLE.get();
-                            obj.class_container = 'main__welcome_title_container_pos2';
-                            obj.class_text = 'main__welcome_title_movement';
-                            ANIM_TITLE.set(obj);
-                            setTimeout(() => {
-                                const obj = ANIM_TITLE.get();
-                                    obj.class_container = 'main__welcome_title_container';
-                                    obj.class_text = 'main__welcome_title_logo';
-                                    obj.coolElements = [];
-                                ANIM_TITLE.set(obj);
-                                const welc_obj = WELC_CONTENT.get();
-                                    welc_obj.introduction = false;
-                                    WELC_CONTENT.set(welc_obj);
-                                const live_text_obj = LiveText.get();
-                                    live_text_obj.ready = true;
-                                    LiveText.set(live_text_obj);
-                                    const interval_liveText = setInterval(() => {
-                                        const live_text_obj = LiveText.get();
-                                        live_text_obj.text = getRandomWord();
-                                        LiveText.set(live_text_obj);
-                                    }, 4500);
-                            }, 400);
-                        }, 200);
-                        return;
-                    };
-
-                    obj.leftpos = obj.leftpos + 1.6;
-                    obj.firstText = obj.firstText.slice(0, -1);
-                    obj.secondText = obj.secondText.slice(0, -2);
-                    ANIM_TITLE.set(obj);
-                }, 100);
-        }, 700);
+            setInterval(() => {
+                const live_text_obj = LiveText.get();
+                live_text_obj.text = getRandomWord();
+                LiveText.set(live_text_obj);
+            }, 4000);
+        }, 4000);
     }
 
     return $('<div>').addClass('main__welcome').append(
-
         $((state) => {
             const [ welc_content ] = state;
             return $('<div>').css({ display: 'flex' }).append(

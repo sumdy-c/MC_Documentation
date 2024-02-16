@@ -15,7 +15,7 @@ const ComponentBlock = () => {
     }
 };
 
-$(Example, 'example_key');`),
+$.MC(Example, 'example_key');`),
 
         text("И теперь давайте более подробно рассмотрим структуру, которую мы здесь видим. Мы создали класс и унаследовали его от MC (Micro Component), затем вызвали конструктор этого класса и сразу конструктор super(). Далее мы создали метод render(), где в соответствии с принципами функциональных контейнеров вернули наш код jQuery. Позже мы использовали наш компонент в нашем коде jQuery и передали ему его ключ."),
 
@@ -42,9 +42,9 @@ codeBlock(
         }
     };
     
-    $(Example, 'example_key');
+    $.MC(Example, 'example_key');
     // тут мы передали одинаковое значение ключа.
-    $(Example, 'example_key');
+    $.MC(Example, 'example_key');
     `),
 
         text('Потом мы можем посмотреть в консоль браузера.'),
@@ -78,7 +78,7 @@ codeBlock(
         $('&lt;div&gt;').addClass('prettier__text').text('Важный элемент').append(
             $('&lt;span&gt;').html(textPage),
             // нас сейчас интересует MC.Props
-            $(Component, MC.Props({
+            $.MC(Component, MC.Props({
                 props: textPage,
                 states: [state]
             }) 'component_key')
@@ -169,7 +169,7 @@ const theme = MC.createState('ligth');
 const openAside = MC.createState(false);
 
 $('#wrapper').append(
-    $(Header, MC.Props({
+    $.MC(Header, MC.Props({
         props: {
             text: title,
             // Обратите внимание, если вы хотите изменить контроллер, но не сам компонент, передайте его в props.
@@ -178,11 +178,11 @@ $('#wrapper').append(
         state: [theme],
         context: myContext      
     }), 'header'),
-    $(Aside, MC.Props({
+    $.MC(Aside, MC.Props({
         state: [theme, openAside],
         context: myContext      
     }), 'aside'),
-    $(Main, MC.Props({
+    $.MC(Main, MC.Props({
         props: title,
         state: [theme],
         context: myContext      
@@ -302,7 +302,7 @@ class Main extends MC {
             $('&lt;span&gt;').text(props),
             $('&lt;ul&gt;').append(
                 persons.map((person, iter) => {
-                    return $(Person, MC.Props({
+                    return $.MC(Person, MC.Props({
                         props: person,
                         states: [this.viewActive]
                         // Ключи всегда будут одинаковыми, в таком варианте они останутся оптимизированными.
@@ -359,7 +359,7 @@ class Person extends MC {
 `$(() => {
     // Как уже говорилось ранее функция должна отдать код jQuery.
     return $('&lt;div&gt;').append(
-        $(Example, 'example')
+        $.MC(Example, 'example')
     )
 }, [])        
 `),
@@ -382,7 +382,7 @@ class Person extends MC {
 
     render() {
         return $('&lt;div&gt;').append(
-            $((state) => {
+            $.MC((state) => {
                 const text_fc = this.local_name.get();
                 return $('&lt;div&gt;').text(text_fc);
                 // Если мы запишем в зависимость this.local_name, мы потеряем правильную последовательность обновления,
