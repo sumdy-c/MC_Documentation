@@ -1,6 +1,6 @@
 const WELCOME = MC.createContext();
 const WELCOME_CONTENT = MC.createContext();
-const version = '0.0.0 (pre-alpha)';
+const version = '0.0.4 (pre-alpha)';
 
 const ANIM_TITLE = MC.createState({
     color: 'black',

@@ -44,11 +44,11 @@ class Example extends MC {
     };
 };
 
-$(Example, 'key').append((state) => {
+$.MC(Example, 'key').append((state) => {
     return $('&lt;div&gt;').text('Меня добавили!');
 })
 `
-                ),
+        ),
 
                 subTitle('MC.createMap(context | "context_key") - создание карты с содержанием абстракций над virual elements, для инициации рендера без изменения контроллеров и организации иных возможностей упраления.'),
                 codeBlock(
@@ -64,23 +64,23 @@ map.forEach((container) => {
     };
 });
 
-$((state) => {
+$.MC((state) => {
     return $('&lt;div&gt;').text('У меня есть контроллер!');
 }, [state], context);
 
-$((state) => {
+$.MC((state) => {
     return $('&lt;div&gt;').text('Я не контролируюсь!');
 }, [], context);
 `
                 ),
                 subTitle('Функциональные контейнеры, могут быть изменены. ( функция запрос на добавление уникального идентификатора )'),
                 codeBlock(
-                    `// Пример реализации
-                    $((state, setKey) => {
-                        setKey('example_key');
-                        
-                        return $('&lt;div&gt;').text('Меня добавили!');
-                    })`
+`// Пример реализации
+$.MC((state, setKey) => {
+    setKey('example_key');
+    
+    return $('&lt;div&gt;').text('Меня добавили!');
+})`
                 ),
                 title('Прочее:'),
                 subTitle('MC.deleteContext("context_key") - удаляет контекст и элементы со страницы.'),
