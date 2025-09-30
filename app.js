@@ -1,32 +1,45 @@
-const PrismReInit = () => {
-    setTimeout(() => {
-        Prism.highlightAll();
-        Prism.plugins
-    }, 5);
+class AppDocs extends MC {
+    /**
+     * Текущая страница
+     */
+    page;
+
+    constructor() {
+        super();
+        this.PAGES = {
+            MAIN: 'main',
+            DOCS: 'docs',
+        }
+
+        this.page = super.state(this.PAGES.MAIN);
+    }
+
+    setPage(page) {
+        this.page.set(page);
+    }
+
+    render(states) {
+        const [ page ] = states.local;
+
+        return $('<div>').addClass('relative flex h-auto min-h-screen w-full flex-col').append(
+            $('<div>').addClass('flex h-full grow flex-col').append(
+                $.MC(Header, { 
+                    currentPage: page,
+                    goToDocs: () => this.setPage(this.PAGES.DOCS),
+                    goToHome: () => this.setPage(this.PAGES.MAIN),
+                }),
+                $('<div>').append(
+                    (page === this.PAGES.MAIN) && $.MC(MainPage, {
+                        goToDocs: () => this.setPage(this.PAGES.DOCS),
+                    }),
+                    (page === this.PAGES.DOCS) && $.MC(DocsPage)
+                ),
+                $.MC(Footer),
+            )
+        );
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const rootEl = $('#root');
-    const APP = MC.createContext();
-    const PAGES = MC.createState({
-        link: 'welcome',
-        back: false
-    });
-
-    rootEl.append(
-        $((state) => {
-            PrismReInit();
-            const [ pages ] = state;
-            switch(pages.link) {
-                case 'welcome':
-                    return WelcomePage(PAGES, PAGES.get().back);
-                case 'documentation':
-                    return DocumentationPage(PAGES);
-                case 'api':
-                    return APIPage(PAGES);
-                case 'dev':
-                    return DevelopmentPage(PAGES);
-            };
-        }, [PAGES], APP),
-    );
+    $('#root').append($.MC(AppDocs))
 });

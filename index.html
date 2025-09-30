@@ -1,42 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/welcome/welcome.css">
-    <link rel="stylesheet" href="./css/documentation/documentation.css">
-    <link rel="stylesheet" href="./css/api/api.css">
-    <link rel="stylesheet" href="./components/doc/css/doc-style.css">
-    <link rel="stylesheet" href="./components/ui/css/ui.css">
-    <link rel="stylesheet" href="./css/dev/dev.css">
-    <link rel="stylesheet" href="./css/other.css">
-    <link href="./prism/prism.css" rel="stylesheet">
+<html class="dark" lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1f353f",
+              secondary: '#65cfff',
+              "background-light": "#f8fafc",
+              "background-dark": "#1e293b",
+              "card-light": "#ffffff",
+              "card-dark": "#334155",
+              "text-light": "#1e293b",
+              "text-dark": "#cbd5e1",
+              "text-muted-light": "#64748b",
+              "text-muted-dark": "#94a3b8",
+              "border-light": "#e2e8f0",
+              "border-dark": "#475569",
+              "code-bg": "#2a2a2a",
+              "accent-dark": "#61dafb",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0rem",
+            },
+          },
+        },
+      };
+    </script>
+
+
+      <!-- lib -->
     <script
-    src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    crossorigin="anonymous"
-  ></script>
-  <script src="./prism/prism.js"></script>
-  <script src="./lib/MC.min.js"></script>
-  <!-- scripts -->
-  <script src="./pages/documentation.js"></script>
-  <script src="./pages/api.js"></script>
-  <script src="./pages/welcome.js"></script>
-  <script src="./pages/development.js"></script>
-  <!-- doc block -->
-  <script src="./components/doc/ContainersBlock.js"></script>
-  <script src="./components/doc/ComponentBlock.js"></script>
-  <script src="./components/doc/InstallBlock.js"></script>
-  <script src="./components/doc/StartBlock.js"></script>
-  <script src="./components/doc/UpdateBlock.js"></script>
-  <script src="./components/doc/TestBlock.js"></script>
-  <!-- ui -->
-  <script src="./components/ui/docBlock.js"></script>
-  <script src="app.js"></script>
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./prism/prism.js"></script>
+    <script src="./lib/MC.min.js"></script>
+    <script>
+      MC.init();
+    </script>
+    <!-- components -->
+    <script src="components/Header.js"></script>
+    <script src="components/Footer.js"></script>
+
+    <!-- pages -->
+    <script src="/pages/MainPage.js"></script>
+    <script src="/pages/DocsPage.js"></script>
+
+    <!-- App -->
+    <script src="app.js"></script>
     <title>Micro Component</title>
-</head>
-<body>
+    <title>MCv7</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+  </head>
+  <body class="bg-background-dark font-mono text-text-dark">
     <div id="root"></div>
-</body>
+  </body>
 </html>
