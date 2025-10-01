@@ -23,19 +23,13 @@ class Footer extends MC {
                         "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
                       )
                       .attr("href", "#")
-                      .text("Документация"),
+                      .text("GitHub"),
                     $("<a>")
                       .addClass(
                         "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
                       )
                       .attr("href", "#")
-                      .text("Примеры"),
-                    $("<a>")
-                      .addClass(
-                        "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
-                      )
-                      .attr("href", "#")
-                      .text("API")
+                      .text("NPM"),
                   ),
                 $("<p>")
                   .addClass("text-sm text-text-dark/70")

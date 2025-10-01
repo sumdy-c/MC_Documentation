@@ -1,11 +1,12 @@
 class MainPage extends MC {
-  constructor() {
+  constructor(_p, _s, vdomID) {
     super();
+    this.animClass = cssManager.cmpCss('fader', vdomID);
   }
 
   render(_s, { goToDocs }) {
     return $("<main>")
-      .addClass("flex flex-1 justify-center px-4 sm:px-6 lg:px-8 pb-10")
+      .addClass(`${this.animClass} flex flex-1 justify-center px-4 sm:px-6 lg:px-8 pb-10`)
       .append(
         $("<div>")
           .addClass("w-full max-w-6xl")

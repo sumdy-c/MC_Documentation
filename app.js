@@ -11,11 +11,13 @@ class AppDocs extends MC {
             DOCS: 'docs',
         }
 
-        this.page = super.state(this.PAGES.MAIN);
+        const page = localStorage.getItem('page');
+        this.page = super.state(page ? page : this.PAGES.MAIN);
     }
 
     setPage(page) {
         this.page.set(page);
+        localStorage.setItem('page', page);
     }
 
     render(states) {
@@ -41,5 +43,8 @@ class AppDocs extends MC {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const cssManager = new CustomCSS(['other.css']);
+    window.cssManager = cssManager;
+    
     $('#root').append($.MC(AppDocs))
 });

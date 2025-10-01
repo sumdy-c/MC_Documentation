@@ -8,9 +8,14 @@ class Header extends MC {
           `;
   }
 
-  render(_s, { currentPage, goToHome, goToDocs }) {
+  getPageTitle(page) {
+    switch(page) {
+        case 'main': return 'Главная страница';
+        case 'docs': return 'Документация'; 
+    }
+  }
 
-    console.log(currentPage);
+  render(_s, { currentPage, goToHome, goToDocs }) {
 
     return $("<header>")
       .css({
@@ -19,6 +24,7 @@ class Header extends MC {
         backdropFilter: "blur(5px)",
         backgroundColor: 'rgb(26 26 26 / 75%)',
         transition: "100ms",
+        zIndex: '999'
       })
       .addClass(
         "flex items-center justify-between border-b border-gray-700 px-4 py-4 sm:px-6 lg:px-8"
@@ -34,7 +40,8 @@ class Header extends MC {
           .append(
             $("<h2>")
               .addClass("text-xl font-bold tracking-tight")
-              .text("Micro Component")
+              .text("Micro Component"),
+            $('<h5>').addClass('text-ml font-bold tracking-tight').text('| ' + this.getPageTitle(currentPage))
           )
       )
       .append(
@@ -44,11 +51,6 @@ class Header extends MC {
             $("<nav>")
               .addClass("flex items-center gap-4 md:gap-6")
               .append(
-                $("<button>")
-                  .addClass(
-                    "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
-                  )
-                  .text("Документация"),
                 $("<button>")
                   .addClass(
                     "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
