@@ -24,7 +24,7 @@ class Header extends MC {
         backdropFilter: "blur(5px)",
         backgroundColor: 'rgb(26 26 26 / 75%)',
         transition: "100ms",
-        zIndex: '999'
+        zIndex: 10
       })
       .addClass(
         "flex items-center justify-between border-b border-gray-700 px-4 py-4 sm:px-6 lg:px-8"

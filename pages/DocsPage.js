@@ -1,9 +1,13 @@
 class DocsPage extends MC {
-  constructor(_p, _s, vdomID) {
+  constructor(_p, _s) {
     super();
     const content = localStorage.getItem('content-docs');
-    this.animClass = cssManager.cmpCss('fader', vdomID);
+    //local states
     this.currentContent = super.state(content ? content : 'start');
+    this.visibleSidebarState = super.state(true);
+    //global states
+    const [ sidebarHide ] = MC.getState("sidebarHide_mcUniqueState");
+    this.sidebarHide = sidebarHide;
   }
 
   setContent(content) {
@@ -11,21 +15,36 @@ class DocsPage extends MC {
     localStorage.setItem('content-docs', content);
   }
 
+  visibleSidebar(value) {
+    this.visibleSidebarState.set(value);
+  }
+
   render(state) {
-    const [currentContent] = state.local;
+    const [currentContent, visibleSidebarState] = state.local;
+
+    // Предположительно тут перекрытие рендера. После выполнения эффекта, выполняется основной код Engine
+    $.MC.effect(([state]) => {
+        // this.visibleSidebar(state);
+    }, [this.sidebarHide]);
 
     return $("<main>")
       .addClass(
-        `${this.animClass} flex-grow container mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8 prose prose-xs dark:prose-invert max-w-none selection:bg-blue-900 selection:text-white`
+        `flex-grow container mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8 prose prose-xs dark:prose-invert max-w-none selection:bg-blue-900 selection:text-white`
       )
       .append(
         $("<div>")
           .addClass("flex flex-col lg:flex-row")
           // Sidebar
           .append(
-            $.MC(Sidebar, {
+            visibleSidebarState ? $.MC(Sidebar, [this.sidebarHide], {
               currentContent: currentContent,
               setContent: (content) => this.setContent(content),
+              hidePanel: () => this.visibleSidebar(false),
+            }) : 
+            $('<aside>').addClass('analog_sidebar transition-100').append(
+              $('<span>').text(currentContent)
+            ).on('click', () => {
+              this.visibleSidebar(true);
             })
           )
           // Контент

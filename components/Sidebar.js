@@ -2,18 +2,21 @@ class Sidebar extends MC {
   constructor() {
     super();
     this.buttonClasses = {
-        picked: 'block px-2 py-1 rounded text-xs font-semibold text-text-light dark:text-text-dark border-b-2 border-secondary cursor-default',
-        static:'block px-2 py-1 rounded text-xs text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-card-dark hover:text-text-light dark:hover:text-text-dark', 
+      picked:
+        "block px-2 py-1 rounded text-xs font-semibold text-text-light dark:text-text-dark border-b-2 border-secondary cursor-default",
+      static:
+        "block px-2 py-1 rounded text-xs text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-card-dark hover:text-text-light dark:hover:text-text-dark",
     };
   }
 
   getButtonClass(content, btn) {
-    return this.buttonClasses[content === btn ? 'picked' : 'static'];
+    return this.buttonClasses[content === btn ? "picked" : "static"];
   }
 
-  render(_s, { currentContent, setContent }) {
+  render(states, { currentContent, setContent, hidePanel }) {
+    const [ sidebarHide ] = states.global; 
     return $("<aside>")
-      .addClass("w-full lg:w-48 lg:pr-4 mb-8 lg:mb-0")
+      .addClass("transition-100 w-full lg:w-48 lg:pr-4 mb-8 lg:mb-0")
       .append(
         $("<nav>")
           .addClass("sticky top-20")
@@ -29,28 +32,28 @@ class Sidebar extends MC {
               .append(
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'start'))
+                    .addClass(this.getButtonClass(currentContent, "start"))
                     .text("Введение")
-                    .on('click', () => setContent('start'))
+                    .on("click", () => setContent("start"))
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'install'))
+                    .addClass(this.getButtonClass(currentContent, "install"))
                     .text("Установка")
-                    .on('click', () => setContent('install'))
+                    .on("click", () => setContent("install"))
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'philosophy'))
+                    .addClass(this.getButtonClass(currentContent, "philosophy"))
                     .text("Философия")
-                    .on('click', () => setContent('philosophy'))
+                    .on("click", () => setContent("philosophy"))
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'fast_start'))
+                    .addClass(this.getButtonClass(currentContent, "fast_start"))
                     .text("Быстрый старт")
-                    .on('click', () => setContent('fast_start'))
-                ),
+                    .on("click", () => setContent("fast_start"))
+                )
               )
           )
           // Раздел "Основные концепции"
@@ -65,19 +68,21 @@ class Sidebar extends MC {
               .append(
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'dfsfsdf'))
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
                     .attr("href", "#")
                     .text("Состояние и рендеринг")
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'sdfsd'))
+                    .addClass(this.getButtonClass(currentContent, "sdfsd"))
                     .attr("href", "#")
                     .text("Жизненный цикл")
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'dfsfsdfsdfsdf'))
+                    .addClass(
+                      this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
+                    )
                     .attr("href", "#")
                     .text("События")
                 )
@@ -95,18 +100,20 @@ class Sidebar extends MC {
               .append(
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'cvbcvb'))
+                    .addClass(this.getButtonClass(currentContent, "cvbcvb"))
                     .attr("href", "#")
                     .text("MicroComponent")
                 ),
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, 'sdfsdf'))
+                    .addClass(this.getButtonClass(currentContent, "sdfsdf"))
                     .attr("href", "#")
                     .text("createStore")
                 )
               )
           )
-      );
+      ).on('mouseleave', () => {
+        sidebarHide && hidePanel();
+    });
   }
 }
