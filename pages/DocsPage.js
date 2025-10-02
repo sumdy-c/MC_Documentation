@@ -22,7 +22,6 @@ class DocsPage extends MC {
   render(state) {
     const [currentContent, visibleSidebarState] = state.local;
 
-    // Предположительно тут перекрытие рендера. После выполнения эффекта, выполняется основной код Engine
     $.MC.effect(([state]) => {
         // this.visibleSidebar(state);
     }, [this.sidebarHide]);
