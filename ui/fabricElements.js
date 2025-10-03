@@ -62,12 +62,12 @@ function card(contentNodes) {
 
 function infoBox(title, body) {
   return card([
-    $("<h3>")
+    title && $("<h3>")
       .addClass(
         "text-base font-semibold text-text-light dark:text-text-dark mb-2"
       )
       .text(title),
-    textP(body),
+    body && textP(body),
   ]);
 }
 

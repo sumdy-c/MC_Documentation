@@ -17,9 +17,9 @@ class AppDocs extends MC {
 
     // settings | global State
     const sidebarHide = localStorage.getItem("sidebarHide");
-    this.sidebarHideStateGlobal = MC.uState(typeof sidebarHide === 'boolean' ? sidebarHide : false, 'sidebarHide_mcUniqueState');
+    const toBoolean = (str) => str === 'true';
 
-    this.fr = true
+    this.sidebarHideStateGlobal = MC.uState(toBoolean(sidebarHide), 'sidebarHide_mcUniqueState');
   }
 
   setPage(page) {
@@ -34,16 +34,12 @@ class AppDocs extends MC {
   render(states) {
     const [page, blackMirror] = states.local;
 
+    // Есть проблема с effect
+    // Если есть зависимости = он не должен обновляться без их триггера. Только от них
+    // Есть зависимостей НЕТ - только единожды
     $.MC.effect(([sidebarHideStateGlobal]) => {
-        if(this.fr) {
-            return;
-        }
-
-        localStorage.setItem("sidebarHide", sidebarHideStateGlobal);
-
+      localStorage.setItem("sidebarHide", sidebarHideStateGlobal);
     }, [this.sidebarHideStateGlobal]);
-
-    this.fr = false;
 
     return $("<div>")
       .addClass("relative flex h-auto min-h-screen w-full flex-col")

@@ -1,30 +1,39 @@
 class DocsPage extends MC {
   constructor(_p, _s) {
     super();
-    const content = localStorage.getItem('content-docs');
+    const contentStorage = localStorage.getItem("content-docs");
     //local states
-    this.currentContent = super.state(content ? content : 'start');
-    this.visibleSidebarState = super.state(true);
+    this.currentContent = super.state(
+      contentStorage ? contentStorage : "start"
+    );
+
+    const toBoolean = (str) => str === 'true';
+    const shStorage = localStorage.getItem("sidebarHide");
+    this.hideSidebarState = super.state(toBoolean(shStorage));
+
     //global states
-    const [ sidebarHide ] = MC.getState("sidebarHide_mcUniqueState");
+    const [sidebarHide] = MC.getState("sidebarHide_mcUniqueState");
     this.sidebarHide = sidebarHide;
   }
 
   setContent(content) {
     this.currentContent.set(content);
-    localStorage.setItem('content-docs', content);
+    localStorage.setItem("content-docs", content);
   }
 
-  visibleSidebar(value) {
-    this.visibleSidebarState.set(value);
+  hideSidebar(value) {
+    this.hideSidebarState.set(value);
   }
 
   render(state) {
-    const [currentContent, visibleSidebarState] = state.local;
+    const [currentContent, hideSidebarState] = state.local;
 
-    $.MC.effect(([state]) => {
-        // this.visibleSidebar(state);
-    }, [this.sidebarHide]);
+    $.MC.effect(
+      ([state]) => {
+        this.hideSidebar(state);
+      },
+      [this.sidebarHide]
+    );
 
     return $("<main>")
       .addClass(
@@ -35,23 +44,25 @@ class DocsPage extends MC {
           .addClass("flex flex-col lg:flex-row")
           // Sidebar
           .append(
-            visibleSidebarState ? $.MC(Sidebar, [this.sidebarHide], {
-              currentContent: currentContent,
-              setContent: (content) => this.setContent(content),
-              hidePanel: () => this.visibleSidebar(false),
-            }) : 
-            $('<aside>').addClass('analog_sidebar transition-100').append(
-              $('<span>').text(currentContent)
-            ).on('click', () => {
-              this.visibleSidebar(true);
-            })
+            hideSidebarState
+              ? $("<aside>")
+                  .addClass("analog_sidebar transition-100")
+                  .append($("<span>").text(currentContent))
+                  .on("click", () => {
+                    this.hideSidebar(false);
+                  })
+              : $.MC(Sidebar, [this.sidebarHide], {
+                  currentContent: currentContent,
+                  setContent: (content) => this.setContent(content),
+                  hidePanel: () => this.hideSidebar(true),
+                })
           )
           // Контент
           .append(
             currentContent === "start" && $.MC(StartContent),
             currentContent === "install" && $.MC(InstallContent),
-            currentContent === 'philosophy' && $.MC(PhilosophyContent),
-            currentContent === 'fast_start' && $.MC(FastStartContent),
+            currentContent === "philosophy" && $.MC(PhilosophyContent),
+            currentContent === "fast_start" && $.MC(FastStartContent)
           ),
         // вынести навигацию в отдельный компонент
         $("<div>")
