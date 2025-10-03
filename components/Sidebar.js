@@ -14,7 +14,7 @@ class Sidebar extends MC {
   }
 
   render(states, { currentContent, setContent, hidePanel }) {
-    const [ sidebarHide ] = states.global; 
+    const [sidebarHide] = states.global;
     return $("<aside>")
       .addClass("transition-100 w-full lg:w-48 lg:pr-4 mb-8 lg:mb-0")
       .append(
@@ -76,7 +76,7 @@ class Sidebar extends MC {
                   $("<button>")
                     .addClass(this.getButtonClass(currentContent, "sdfsd"))
                     .attr("href", "#")
-                    .text("Жизненный цикл")
+                    .text("Жизненный цикл ")
                 ),
                 $("<li>").append(
                   $("<button>")
@@ -84,36 +84,57 @@ class Sidebar extends MC {
                       this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
                     )
                     .attr("href", "#")
-                    .text("События")
-                )
+                    .text("Мемоизация")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(
+                      this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
+                    )
+                    .attr("href", "#")
+                    .text("Изолирование контекста")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(
+                      this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
+                    )
+                    .attr("href", "#")
+                    .text("Миграция с v.6")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(
+                      this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
+                    )
+                    .attr("href", "#")
+                    .text("Оптимизации")
+                ),
               )
           )
-          // Раздел "API"
+          // Раздел "Функциональные контейнеры"
           .append(
             $("<h3>")
               .addClass(
                 "text-[10px] font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider mt-4 mb-2"
               )
-              .text("API"),
+              .text("Развитие до v8"),
             $("<ul>")
               .addClass("space-y-1")
               .append(
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, "cvbcvb"))
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
                     .attr("href", "#")
-                    .text("MicroComponent")
+                    .text("Фрагмент")
                 ),
-                $("<li>").append(
-                  $("<button>")
-                    .addClass(this.getButtonClass(currentContent, "sdfsdf"))
-                    .attr("href", "#")
-                    .text("createStore")
-                )
               )
           )
-      ).on('mouseleave', () => {
+
+          
+      )
+      .on("mouseleave", () => {
         sidebarHide && hidePanel();
-    });
+      });
   }
 }

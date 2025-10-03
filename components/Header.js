@@ -60,7 +60,7 @@ class Header extends MC {
                   .addClass(
                     "text-sm font-medium hover:font-bold text-text-dark/70 hover:text-accent-dark"
                   )
-                  .text("API")
+                  .text("issue")
               )
           ).append(
             $("<button>")
