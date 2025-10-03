@@ -112,7 +112,7 @@ class Sidebar extends MC {
                 ),
               )
           )
-          // Раздел "Функциональные контейнеры"
+          // Раздел "Развитие"
           .append(
             $("<h3>")
               .addClass(
@@ -133,7 +133,7 @@ class Sidebar extends MC {
 
           
       )
-      .on("mouseleave", () => {
+      .on("click", () => {
         sidebarHide && hidePanel();
       });
   }
