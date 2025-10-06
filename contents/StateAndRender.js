@@ -169,7 +169,8 @@ return $("<div>")
                         $("<input>")
                           .attr("id", "lesson_StateAndRender_part_two-inpt")
                           .css({ color: "#000" })
-                          .val(lessonTextSpanState)
+                          .attr({ 'value': lessonTextSpanState })
+                        //   .val(lessonTextSpanState)
                           .on("input", (e) => {
                             this.lessonTextSpanState.set(e.target.value);
                           })
