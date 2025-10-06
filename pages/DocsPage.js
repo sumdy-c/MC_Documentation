@@ -59,7 +59,8 @@ class DocsPage extends MC {
             currentContent === "start" && $.MC(StartContent),
             currentContent === "install" && $.MC(InstallContent),
             currentContent === "philosophy" && $.MC(PhilosophyContent),
-            currentContent === "fast_start" && $.MC(FastStartContent)
+            currentContent === "fast_start" && $.MC(FastStartContent),
+            currentContent === 'stateAndRnd' && $.MC(StateAndRender),
           ),
         // вынести навигацию в отдельный компонент
         $("<div>")

@@ -82,29 +82,7 @@
     <script src="/contents/install.js"></script>
     <script src="/contents/philosophy.js"></script>
     <script src="/contents/fastStart.js"></script>
-
-    <!-- <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const countState = MC.uState(0, 'init_state_counter');
-
-        $('body').append(
-          $.MC(([count]) => {
-            return $('<div>').append(
-              $('<span>').text(`счётчик - ${count}`),
-              
-              $('<div>').append(
-                $('<button>').text('-1').on('click', () => {
-                  countState.set(countState.get() - 1);
-                }),
-                $('<button>').text('+1').on('click', () => {
-                  countState.set(countState.get() + 1);
-                })
-              )
-            )
-          }, [countState])
-        )
-      })
-    </script> -->
+    <script src="/contents/StateAndRender.js"></script>
 
     <!-- App -->
     <script src="app.js"></script>
