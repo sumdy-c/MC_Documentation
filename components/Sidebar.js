@@ -129,6 +129,12 @@ class Sidebar extends MC {
                     .attr("href", "#")
                     .text("Фрагмент")
                 ),
+                 $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .attr("href", "#")
+                    .text("Батчинг")
+                ),
               )
           )
       )
