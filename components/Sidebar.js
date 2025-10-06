@@ -15,6 +15,7 @@ class Sidebar extends MC {
 
   render(states, { currentContent, setContent, hidePanel }) {
     const [sidebarHide] = states.global;
+
     return $("<aside>")
       .addClass("transition-100 w-full lg:w-48 lg:pr-4 mb-8 lg:mb-0")
       .append(
@@ -130,8 +131,6 @@ class Sidebar extends MC {
                 ),
               )
           )
-
-          
       )
       .on("click", () => {
         sidebarHide && hidePanel();

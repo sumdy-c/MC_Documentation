@@ -28,12 +28,9 @@ class DocsPage extends MC {
   render(state) {
     const [currentContent, hideSidebarState] = state.local;
 
-    $.MC.effect(
-      ([state]) => {
+      $.MC.effect(([state]) => {
         this.hideSidebar(state);
-      },
-      [this.sidebarHide]
-    );
+      }, [this.sidebarHide]);
 
     return $("<main>")
       .addClass(
