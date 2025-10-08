@@ -167,6 +167,25 @@ class Sidebar extends MC {
                 ),
               )
           )
+
+           // Раздел "Test"
+          .append(
+            $("<h3>")
+              .addClass(
+                "text-[10px] font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider mt-4 mb-2"
+              )
+              .text("Service"),
+            $("<ul>")
+              .addClass("space-y-1")
+              .append(
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("TestPage")
+                    .on("click", () => setContent("testPage"))
+                ),
+              )
+          )
       )
       .on("click", () => {
         sidebarHide && hidePanel();

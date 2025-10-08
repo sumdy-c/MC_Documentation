@@ -319,5 +319,3 @@ return $("<div>")
     );
   }
 }
-
-MCState;

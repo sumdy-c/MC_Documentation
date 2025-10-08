@@ -1,11 +1,13 @@
 class DocsPage extends MC {
   constructor(_p, _s) {
     super();
-    const contentStorage = localStorage.getItem("content-docs");
+    // const contentStorage = localStorage.getItem("content-docs");
     //local states
-    this.currentContent = super.state(
-      contentStorage ? contentStorage : "start"
-    );
+    // this.currentContent = super.state(
+    //   contentStorage ? contentStorage : "start"
+    // );
+
+    this.currentContent = super.state("start");
 
     const toBoolean = (str) => str === 'true';
     const shStorage = localStorage.getItem("sidebarHide");
@@ -32,6 +34,10 @@ class DocsPage extends MC {
         this.hideSidebar(state);
       }, [this.sidebarHide]);
 
+      $.MC.effect(() => {
+        console.log('effect DOC PAGE')
+      }, []);
+
     return $("<main>")
       .addClass(
         `flex-grow container mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8 prose prose-xs dark:prose-invert max-w-none selection:bg-blue-900 selection:text-white`
@@ -52,7 +58,7 @@ class DocsPage extends MC {
                   currentContent: currentContent,
                   setContent: (content) => this.setContent(content),
                   hidePanel: () => this.hideSidebar(true),
-                })
+                }, 'side_bar_key') // без ключа множественно пересоздаёт компонент
           )
           // Контент
           .append(
@@ -61,6 +67,7 @@ class DocsPage extends MC {
             currentContent === "philosophy" && $.MC(PhilosophyContent),
             currentContent === "fast_start" && $.MC(FastStartContent),
             currentContent === 'stateAndRnd' && $.MC(StateAndRender),
+            currentContent === 'testPage' && $.MC(TestPage),
           ),
         // вынести навигацию в отдельный компонент
         $("<div>")
