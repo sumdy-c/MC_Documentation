@@ -6,9 +6,9 @@ class Test_Count extends MC {
     render(states) {
         const [ counter ] = states.global;
 
-        $.MC.effect(() => {
-            console.log('effect Test_Counter');
-        }, [])
+        // $.MC.effect(() => {
+        //     console.log('effect Test_Counter');
+        // }, [])
 
         return $('<div>').text(`classes counter = ${counter}`);
     }
@@ -25,9 +25,9 @@ class TestPage extends MC {
     render() {
         const state = MC.uState(1, 'testPageState');
 
-        $.MC.effect(() => {
-            console.log('effect TESTPage')
-        }, []);
+        // $.MC.effect(() => {
+        //     console.log('effect TESTPage');
+        // }, []);
 
         const componentFunction = function([state]) {
             return $('<vert>').text(state);

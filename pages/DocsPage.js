@@ -1,13 +1,11 @@
 class DocsPage extends MC {
   constructor(_p, _s) {
     super();
-    // const contentStorage = localStorage.getItem("content-docs");
     //local states
-    // this.currentContent = super.state(
-    //   contentStorage ? contentStorage : "start"
-    // );
-
-    this.currentContent = super.state("start");
+    const contentStorage = localStorage.getItem("content-docs");
+    this.currentContent = super.state(
+      contentStorage ? contentStorage : "start"
+    );
 
     const toBoolean = (str) => str === 'true';
     const shStorage = localStorage.getItem("sidebarHide");
@@ -34,9 +32,16 @@ class DocsPage extends MC {
         this.hideSidebar(state);
       }, [this.sidebarHide]);
 
+
+      // теперь выполняется при unMount
       $.MC.effect(() => {
-        console.log('effect DOC PAGE')
+        console.log('effect DOC PAGE');
+         
+        return () => {
+          console.log('end effect'); // вот это))
+        }
       }, []);
+      //
 
     return $("<main>")
       .addClass(
