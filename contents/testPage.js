@@ -3,14 +3,25 @@ class Test_Count extends MC {
         super();
     }
 
-    render(states) {
+    render(states, { childText, count }, vdom) {
         const [ counter ] = states.global;
 
+        $.MC.effect(() => {
+            console.log(`монтирование ${vdom.key}`);
+
+            return () => {
+                console.log(`размонтирование ${vdom.key}`);
+            }
+        }, []);
+
+        if(counter) {
+            return $('<div>').text(`other component = ${counter}`);
+        }
         // $.MC.effect(() => {
         //     console.log('effect Test_Counter');
         // }, [])
 
-        return $('<div>').text(`classes counter = ${counter}`);
+        return $('<div>').text(`classes counter = ${childText} + ${count}`);
     }
 }
 
@@ -20,14 +31,12 @@ class Test_Count extends MC {
 class TestPage extends MC {
     constructor() {
         super();
+        this.view = super.state(true);
     }
 
-    render() {
+    render(states) {
         const state = MC.uState(1, 'testPageState');
-
-        // $.MC.effect(() => {
-        //     console.log('effect TESTPage');
-        // }, []);
+        const [ view ] = states.local;
 
         const componentFunction = function([state]) {
             return $('<vert>').text(state);
@@ -49,20 +58,32 @@ class TestPage extends MC {
             
             spacer(),
 
-            $.MC(function([state]) {
+            $.MC(function([ state ], { view }) {
                 const stateChild = MC.uState('child', 'testPageStateChilds');
 
                 return $('<div>').text(`parent = ${state}`).append(
+                
+                    view && $.MC(([childText], { count }) => {
+                        
+                        return $('<div>').append(
+                            $.MC(Test_Count, { childText, count })
+                        );
+                    }, { count: state }, [stateChild]),
+
                     $.MC(([stateChilds], { prop }) => {
+
+                        // эффекты не оказывают влияния для функциональных контейнеров
+
                         return $('<div>').text(stateChilds + ` parent val = ${prop}`);
                     }, { prop: state }, [stateChild])
 
                 );
-            }, [state]),
+            }, { view: view }, [state]),
 
             spacer(),
 
-            buttonOutline('state++').on('click', () => state.set(state.get() + 1))
+            buttonOutline('state++').on('click', () => state.set(state.get() + 1)),
+            buttonOutline('setView').on('click', () => this.view.set(!this.view.get())),
         );
     }
 }
