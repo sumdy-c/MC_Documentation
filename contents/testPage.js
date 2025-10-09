@@ -7,11 +7,9 @@ class Test_Count extends MC {
         const [ counter ] = states.global;
 
         $.MC.effect(() => {
-            // console.log(vdom);
             console.log(`монтирование ${vdom.key}`);
 
             return () => {
-                // console.log(vdom);
                 console.log(`размонтирование ${vdom.key}`);
             }
         }, []);
@@ -19,17 +17,32 @@ class Test_Count extends MC {
         if(!childText) {
             return $('<div>').text(`other component = ${counter}`);
         }
-        // $.MC.effect(() => {
-        //     console.log('effect Test_Counter');
-        // }, [])
 
         return $('<div>').text(`classes counter = ${childText} + ${counter}`);
     }
 }
 
-/**
- * Привязывается куда-то рандомно, посмотреть в cleanUp
- */
+class SomeComponent extends MC {
+    constructor() {
+        super();
+        this.lState = super.state(true);
+        
+    }
+
+    render(states) {
+        const state = MC.uState('text', 'text_state-SomeComponent');
+        const [ lState ] = states.local;
+
+    
+
+        return $('<div>').append(
+            lState && $.MC(Test_Count, state),
+
+            buttonOutline('setView_Local').on('click', () => this.lState.set(!this.lState.get())), // сколько сюда не кликай а cleanUp в консоле не будет
+        );
+    }
+}
+
 class TestPage extends MC {
     constructor() {
         super();
@@ -41,50 +54,47 @@ class TestPage extends MC {
         const [ view ] = states.local;
 
         const componentFunction = function([state]) {
-            return $('<vert>').text(state);
+            return $('<div>').text(state);
         };
 
         return $('<div>').append(
-            
-            // $.MC(componentFunction, { TEST_PROP: "TEST" }, [state]),
-            
-            // spacer(),
-            
-            // $.MC(([state]) => {
-            //     return $('<vert>').text(state);
-            // }, [state], 'interator'),
+          
+            view && $.MC(SomeComponent), // зато будет тут
 
-            // spacer(),
+            $.MC(componentFunction, { TEST_PROP: "TEST" }, [state]),
+            
+            spacer(),
+            
+            $.MC(([state]) => {
+                return $('<div>').text(state);
+            }, [state], 'interator'),
 
-            // TODO: ПРОБЛЕМА В КОМПОНЕНТАХ. Почему то фантомные id появляются если изменить состояние и попробовать скрыть, показать объект.
-            $.MC(Test_Count, state),
+            spacer(),
 
-            view && $.MC(Test_Count, { childText: 'childText' }, state),
+            // $.MC(Test_Count, state),
+
+            // $.MC(Test_Count, { childText: 'childText' }, state),
             
             spacer(),
 
-            // $.MC(([ state ], { view }) => {
-            //     const stateChild = MC.uState('child', 'testPageStateChilds');
+            $.MC(([ state ], { view }) => {
+                const stateChild = MC.uState('child', 'testPageStateChilds');
 
-            //     return $('<div>').text(`parent = ${state}`).append(
+                return $('<div>').text(`parent = ${state}`).append(
                 
-            //         $.MC(([childText], { count }) => {
+                    view && $.MC(([childText], { count }) => {
                         
-            //             return $('<div>').append(
-            //                 // $.MC(Test_Count, { childText, count }, 'sdfsdfsdf')
-            //                 $('<a>').text('LINK')
-            //             );
-            //         }, { count: state }, [stateChild]),
+                        return $('<div>').append(
+                            $('<span>').text(childText + `count = ${count}`)
+                        );
+                    }, { count: state }, [stateChild]),
 
-            //         $.MC(([stateChilds], { prop }) => {
+                    $.MC(([stateChilds], { prop }) => {
+                        return $('<div>').text(stateChilds + ` parent val = ${prop}`);
+                    }, { prop: state }, [stateChild])
 
-            //             // эффекты не оказывают влияния для функциональных контейнеров
-
-            //             return $('<div>').text(stateChilds + ` parent val = ${prop}`);
-            //         }, { prop: state }, [stateChild])
-
-            //     );
-            // }, { view: view }, [state]),
+                );
+            }, { view: view }, [state]),
 
             spacer(),
 
