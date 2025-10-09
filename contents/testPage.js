@@ -3,25 +3,27 @@ class Test_Count extends MC {
         super();
     }
 
-    render(states, { childText, count }, vdom) {
+    render(states, { childText }, vdom) {
         const [ counter ] = states.global;
 
         $.MC.effect(() => {
+            // console.log(vdom);
             console.log(`монтирование ${vdom.key}`);
 
             return () => {
+                // console.log(vdom);
                 console.log(`размонтирование ${vdom.key}`);
             }
         }, []);
 
-        if(counter) {
+        if(!childText) {
             return $('<div>').text(`other component = ${counter}`);
         }
         // $.MC.effect(() => {
         //     console.log('effect Test_Counter');
         // }, [])
 
-        return $('<div>').text(`classes counter = ${childText} + ${count}`);
+        return $('<div>').text(`classes counter = ${childText} + ${counter}`);
     }
 }
 
@@ -44,41 +46,45 @@ class TestPage extends MC {
 
         return $('<div>').append(
             
-            $.MC(componentFunction, { TEST_PROP: "TEST" }, [state]),
+            // $.MC(componentFunction, { TEST_PROP: "TEST" }, [state]),
             
-            spacer(),
+            // spacer(),
             
-            $.MC(([state]) => {
-                return $('<vert>').text(state);
-            }, [state], 'interator'),
+            // $.MC(([state]) => {
+            //     return $('<vert>').text(state);
+            // }, [state], 'interator'),
 
-            spacer(),
+            // spacer(),
 
+            // TODO: ПРОБЛЕМА В КОМПОНЕНТАХ. Почему то фантомные id появляются если изменить состояние и попробовать скрыть, показать объект.
             $.MC(Test_Count, state),
+
+            view && $.MC(Test_Count, { childText: 'childText' }, state),
             
             spacer(),
 
-            $.MC(function([ state ], { view }) {
-                const stateChild = MC.uState('child', 'testPageStateChilds');
+            // $.MC(([ state ], { view }) => {
+            //     const stateChild = MC.uState('child', 'testPageStateChilds');
 
-                return $('<div>').text(`parent = ${state}`).append(
+            //     return $('<div>').text(`parent = ${state}`).append(
                 
-                    view && $.MC(([childText], { count }) => {
+            //         $.MC(([childText], { count }) => {
                         
-                        return $('<div>').append(
-                            $.MC(Test_Count, { childText, count })
-                        );
-                    }, { count: state }, [stateChild]),
+            //             return $('<div>').append(
+            //                 // $.MC(Test_Count, { childText, count }, 'sdfsdfsdf')
+            //                 $('<a>').text('LINK')
+            //             );
+            //         }, { count: state }, [stateChild]),
 
-                    $.MC(([stateChilds], { prop }) => {
+            //         $.MC(([stateChilds], { prop }) => {
 
-                        // эффекты не оказывают влияния для функциональных контейнеров
+            //             // эффекты не оказывают влияния для функциональных контейнеров
 
-                        return $('<div>').text(stateChilds + ` parent val = ${prop}`);
-                    }, { prop: state }, [stateChild])
+            //             return $('<div>').text(stateChilds + ` parent val = ${prop}`);
+            //         }, { prop: state }, [stateChild])
 
-                );
-            }, { view: view }, [state]),
+            //     );
+            // }, { view: view }, [state]),
 
             spacer(),
 

@@ -159,8 +159,7 @@ return $("<div>")
                   "Теперь мы можем попробовать изменить значение input:"
                 ),
                 spacer(),
-                $.MC(
-                  ([lessonTextSpanState]) => {
+                $.MC(([lessonTextSpanState]) => {
                     // Все что он делает возвращает вёрстку которую вы напишите.
                     return $("<div>")
                       .css({ backgroundColor: "#000", padding: "5px" })

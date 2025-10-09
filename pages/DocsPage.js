@@ -32,17 +32,6 @@ class DocsPage extends MC {
         this.hideSidebar(state);
       }, [this.sidebarHide]);
 
-
-      // теперь выполняется при unMount
-      $.MC.effect(() => {
-        console.log('effect DOC PAGE');
-         
-        return () => {
-          console.log('end effect'); // вот это))
-        }
-      }, []);
-      //
-
     return $("<main>")
       .addClass(
         `flex-grow container mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8 prose prose-xs dark:prose-invert max-w-none selection:bg-blue-900 selection:text-white`
