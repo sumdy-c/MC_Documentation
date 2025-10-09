@@ -1,9 +1,121 @@
+const rowFunctionContainer = ([lessonThreeFCState], { iter }) => {
+  const row = $("<tr>")
+    .css({
+      backgroundColor: iter % 2 === 0 ? "#f1f5f9" : "#ffffff",
+      transition: "background-color 0.2s",
+    })
+    .hover(
+      function () {
+        $(this).css("background-color", "#e2e8f0");
+      },
+      function () {
+        $(this).css("background-color", iter % 2 === 0 ? "#f1f5f9" : "#ffffff");
+      }
+    );
+
+  row.append(
+    $("<td>")
+      .text(iter)
+      .css({ padding: "8px", border: "1px solid #e2e8f0", fontWeight: 500 }),
+    $("<td>")
+      .text(
+        `${
+          lessonThreeFCState.charAt(0).toUpperCase() +
+          lessonThreeFCState.slice(1)
+        } ` + iter
+      )
+      .css({ padding: "8px", border: "1px solid #e2e8f0" }),
+    $("<td>")
+      .text(
+        `Описание ${lessonThreeFCState ? `${lessonThreeFCState}a` : ""} ` + iter
+      )
+      .css({ padding: "8px", border: "1px solid #e2e8f0", color: "#475569" })
+  );
+
+  return row;
+};
+
+const tableFunctionContainer = ([lessonTwoFCState]) => {
+  const lessonThreeFCState = MC.uState("урок", "lessonThreeFCState_state_mc-lesson_stateAmdRender");
+
+  const table = $("<table>").css({
+    width: "100%",
+    borderCollapse: "collapse",
+    fontFamily: "system-ui, sans-serif",
+    marginTop: "10px",
+  });
+
+  const header = $("<tr>").css({
+    backgroundColor: "#1e293b",
+    color: "#fff",
+    textAlign: "left",
+  });
+
+  header.append(
+    $("<th>").text("№").css({ padding: "8px", border: "1px solid #334155" }),
+    $("<th>")
+      .text("Название")
+      .css({ padding: "8px", border: "1px solid #334155" }),
+    $("<th>")
+      .text("Описание")
+      .css({ padding: "8px", border: "1px solid #334155" })
+  );
+
+  table.append(header);
+
+  for (let i = 1; i <= lessonTwoFCState; i++) {
+    const $row = $.MC(rowFunctionContainer, { iter: i }, [lessonThreeFCState], `unique_key_${i}`);
+
+    table.append($row);
+  }
+
+  return $("<div>").css({ minWidth: '500px' }).append(
+    $.MC(([lessonThreeFCState], { count }) => {
+      return $("<h1>").text(`Список ${lessonThreeFCState ? `${lessonThreeFCState}ов` : 'Без темы'} (${count})`).css({
+        fontSize: "20px",
+        fontWeight: "600",
+        marginBottom: "8px",
+        fontFamily: "system-ui",
+      });
+    }, { count: lessonTwoFCState },[lessonThreeFCState]),
+    
+    $("<select>")
+        .css({ color: "#000", margin: "5px" })
+        .val(lessonThreeFCState.get())
+        .append(
+          $("<option>").text("урок").val("урок"),
+          $("<option>").text("вопрос").val("вопрос"),
+          $("<option>").text("тест").val("тест"),
+          $("<option>").text("студент").val("студент"),
+          $("<option>").text("экзамен").val("экзамен"),
+          $("<option>").text("документ").val("документ")
+        )
+        .on("change", (e) => {
+          lessonThreeFCState.set(e.target.value);
+      }),
+    $("<div>")
+      .css({
+        maxHeight: "800px",
+        overflowY: "auto",
+      })
+      .append(table)
+  );
+};
+
 class StateAndRender extends MC {
   constructor() {
     super();
     this.lessonTextSpanState = MC.uState(
       "Какой-то div",
       "test_state_mc-lesson_stateAmdRender"
+    );
+    this.lessonFirstFCState = MC.uState(
+      1,
+      "lessonFirstFCState_state_mc-lesson_stateAmdRender"
+    );
+    this.lessonTwoFCState = MC.uState(
+      5,
+      "lessonTwoFCState_state_mc-lesson_stateAmdRender"
     );
   }
 
@@ -159,7 +271,8 @@ return $("<div>")
                   "Теперь мы можем попробовать изменить значение input:"
                 ),
                 spacer(),
-                $.MC(([lessonTextSpanState]) => {
+                $.MC(
+                  ([lessonTextSpanState]) => {
                     // Все что он делает возвращает вёрстку которую вы напишите.
                     return $("<div>")
                       .css({ backgroundColor: "#000", padding: "5px" })
@@ -174,7 +287,6 @@ return $("<div>")
                           .attr("id", "lesson_StateAndRender_part_two-inpt")
                           .css({ color: "#000" })
                           .attr({ value: lessonTextSpanState })
-                          //   .val(lessonTextSpanState)
                           .on("input", (e) => {
                             this.lessonTextSpanState.set(e.target.value);
                           })
@@ -293,7 +405,8 @@ return $("<div>")
 
         spacer("10px"),
 
-        infoBox(`Постепенно углубляясь`,
+        infoBox(
+          `Постепенно углубляясь`,
           `Чтобы не перегружать читателя сейчас - сфокусируемся на функциональных контейнерах — разберём их глубже: как они подписываются на состояние, как управляют эффектами, как оптимизируются и как взаимодействуют с движком рендера. 
   В отдельных разделах будет показано, как те же концепции применимы и для классовых компонентов или в гибридных архитектурах.`
         ),
@@ -312,8 +425,81 @@ return $("<div>")
 
         spacer(),
 
-        heading3('## Жизненный цикл функционального контейнера'),
+        heading3("## Что такое функциональный контейнер"),
+        textP(`Фунциональный контейнер - это легкий поставщик HTML для вашего ресурса. Для объяснения работы состояний мы уже столкнулись с его применением., давайте теперь посмотрим \
+        полный синтаксис для полного понимания силы такой структуры.`),
+        spacer("10px"),
+        $("<div>")
+          .css({
+            display: "flex",
+            "justify-content": "space-around",
+          })
+          .append(
+            codeBlock(
+              "Функциональный контейнер",
+              "Сделаем что-то более сложное на этот раз",
+              `// Мы разберём все что тут происходит
+const rowFunctionContainer = ${rowFunctionContainer.toString()}
 
+const tableFunctionContainer = ${tableFunctionContainer.toString()}
+
+// Использование
+const lessonTwoFCState = MC.uState(5, 'lessonTwoFCState_key');
+
+$('#any_component').append(
+
+  $('<button>').text("row--")
+    .css({ margin: "0 5px" })
+    .on("click", () => {
+      let newValue = lessonTwoFCState.get() - 1;
+      if (newValue < 0) {
+        newValue = 0;
+      }
+      lessonTwoFCState.set(newValue);
+  }),
+
+  $('<button>').text("row++")
+    .css({ margin: "0 5px" })
+    .on("click", () => {
+      let newValue = lessonTwoFCState.get() + 1;
+      lessonTwoFCState.set(newValue);
+  }),
+
+  $.MC(tableFunctionContainer, [lessonTwoFCState])
+)
+`
+            ),
+            card([
+              spacer(),
+              buttonOutline(`row--`)
+                .css({ margin: "0 5px" })
+                .on("click", () => {
+                  let newValue = this.lessonTwoFCState.get() - 1;
+                  if (newValue < 0) {
+                    newValue = 0;
+                  }
+                  this.lessonTwoFCState.set(newValue);
+                }),
+
+              buttonOutline("row++")
+                .css({ margin: "0 5px" })
+                .on("click", () => {
+                  let newValue = this.lessonTwoFCState.get() + 1;
+                  this.lessonTwoFCState.set(newValue);
+                }),
+
+              $.MC(tableFunctionContainer, [this.lessonTwoFCState]),
+
+              spacer(),
+            ]).css({ marginTop: "2rem" })
+          ),
+        spacer(),
+        textP('Стоит сразу отметить важный момент:'),
+        spacer('10px'),
+        infoBox('Не про jQuery', `В контексте данной документации мы не рассматриваем использование jQuery. Подразумевается что при подключении реактивного фреймоплагина \ 
+        - вы уже на достаточном уровне знаете эту библиотеку.`),
+        spacer('10px'),
+        textP('Давайте вернёмся к нашему примеру. Когда я говорил')
       )
     );
   }
