@@ -14,6 +14,8 @@ class DocsPage extends MC {
     //global states
     const [sidebarHide] = MC.getState("sidebarHide_mcUniqueState");
     this.sidebarHide = sidebarHide;
+
+    this.localTestState = super.state(false);
   }
 
   setContent(content) {
@@ -31,6 +33,11 @@ class DocsPage extends MC {
       $.MC.effect(([state]) => {
         this.hideSidebar(state);
       }, [this.sidebarHide]);
+
+      $.MC.effect(([localState]) => {
+        console.log('localState');
+        console.log(localState);
+      }, [this.localTestState]);
 
     return $("<main>")
       .addClass(
@@ -75,7 +82,7 @@ class DocsPage extends MC {
             $("<button>")
               .addClass("text-secondary hover:underline flex items-center")
               .attr("href", "")
-              .append(`Перейти к разделу - "?"`)
+              .append(`Перейти к разделу - "?"`).on('click', () => this.localTestState.set(!this.localTestState.get()))
           )
       );
   }

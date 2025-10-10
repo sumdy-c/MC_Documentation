@@ -48,7 +48,7 @@ class AppDocs extends MC {
               currentPage: page,
               goToDocs: () => {
                 // blocked
-                // this.setPage(this.PAGES.DOCS)
+                this.setPage(this.PAGES.DOCS)
               },
               goToHome: () => this.setPage(this.PAGES.MAIN),
             }),
@@ -58,7 +58,7 @@ class AppDocs extends MC {
                   goToDocs: () => {
                     
                   // blocked
-                  // this.setPage(this.PAGES.DOCS)
+                  this.setPage(this.PAGES.DOCS)
                 },
                 }),
               page === this.PAGES.DOCS && $.MC(DocsPage)
