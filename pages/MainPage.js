@@ -1,9 +1,10 @@
 class MainPage extends MC {
-  constructor(_p, _s, vdomID) {
+  constructor(_p, _s) {
     super();
   }
 
   render(_s, { goToDocs }) {
+
     return $("<main>")
       .addClass(`main-bg flex flex-1 justify-center px-4 sm:px-6 lg:px-8 pb-10`)
       .append(
@@ -45,6 +46,13 @@ class MainPage extends MC {
                           )
                           .text(
                             "Реактивность в jQuery: контроль рендеринга, минимальный оверхед и гибкая работа с состояниями"
+                          ),
+                          $("<p>")
+                          .addClass(
+                            "mx-auto text-base text-text-dark/100 sm:text-lg"
+                          )
+                          .text(
+                            "*Документация в разработке (docs in dev)"
                           )
                       ),
                     $("<button>")

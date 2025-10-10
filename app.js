@@ -46,13 +46,20 @@ class AppDocs extends MC {
           .append(
             $.MC(Header, {
               currentPage: page,
-              goToDocs: () => this.setPage(this.PAGES.DOCS),
+              goToDocs: () => {
+                // blocked
+                // this.setPage(this.PAGES.DOCS)
+              },
               goToHome: () => this.setPage(this.PAGES.MAIN),
             }),
             $("<div>").append(
               page === this.PAGES.MAIN &&
                 $.MC(MainPage, {
-                  goToDocs: () => this.setPage(this.PAGES.DOCS),
+                  goToDocs: () => {
+                    
+                  // blocked
+                  // this.setPage(this.PAGES.DOCS)
+                },
                 }),
               page === this.PAGES.DOCS && $.MC(DocsPage)
             ),
