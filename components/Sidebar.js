@@ -15,6 +15,7 @@ class Sidebar extends MC {
 
   render(states, { currentContent, setContent, hidePanel }) {
     const [sidebarHide] = states.global;
+
     return $("<aside>")
       .addClass("transition-100 w-full lg:w-48 lg:pr-4 mb-8 lg:mb-0")
       .append(
@@ -68,14 +69,13 @@ class Sidebar extends MC {
               .append(
                 $("<li>").append(
                   $("<button>")
-                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
-                    .attr("href", "#")
+                    .addClass(this.getButtonClass(currentContent, "stateAndRnd"))
                     .text("Состояние и рендеринг")
+                    .on('click', () => setContent('stateAndRnd'))
                 ),
                 $("<li>").append(
                   $("<button>")
                     .addClass(this.getButtonClass(currentContent, "sdfsd"))
-                    .attr("href", "#")
                     .text("Жизненный цикл ")
                 ),
                 $("<li>").append(
@@ -83,7 +83,6 @@ class Sidebar extends MC {
                     .addClass(
                       this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
                     )
-                    .attr("href", "#")
                     .text("Мемоизация")
                 ),
                 $("<li>").append(
@@ -91,7 +90,6 @@ class Sidebar extends MC {
                     .addClass(
                       this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
                     )
-                    .attr("href", "#")
                     .text("Изолирование контекста")
                 ),
                 $("<li>").append(
@@ -99,7 +97,6 @@ class Sidebar extends MC {
                     .addClass(
                       this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
                     )
-                    .attr("href", "#")
                     .text("Миграция с v.6")
                 ),
                 $("<li>").append(
@@ -107,7 +104,6 @@ class Sidebar extends MC {
                     .addClass(
                       this.getButtonClass(currentContent, "dfsfsdfsdfsdf")
                     )
-                    .attr("href", "#")
                     .text("Оптимизации")
                 ),
               )
@@ -125,13 +121,52 @@ class Sidebar extends MC {
                 $("<li>").append(
                   $("<button>")
                     .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
-                    .attr("href", "#")
                     .text("Фрагмент")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("Батчинг")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("Анимации")
                 ),
               )
           )
-
-          
+          // Раздел "Плагины"
+          .append(
+            $("<h3>")
+              .addClass(
+                "text-[10px] font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider mt-4 mb-2"
+              )
+              .text("Плагины"),
+            $("<ul>")
+              .addClass("space-y-1")
+              .append(
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("Создание плагина")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("Добавление плагина")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("MC.query")
+                ),
+                $("<li>").append(
+                  $("<button>")
+                    .addClass(this.getButtonClass(currentContent, "dfsfsdf"))
+                    .text("CSS Modules")
+                ),
+              )
+          )
       )
       .on("click", () => {
         sidebarHide && hidePanel();

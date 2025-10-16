@@ -28,12 +28,9 @@ class DocsPage extends MC {
   render(state) {
     const [currentContent, hideSidebarState] = state.local;
 
-    $.MC.effect(
-      ([state]) => {
+      $.MC.effect(([state]) => {
         this.hideSidebar(state);
-      },
-      [this.sidebarHide]
-    );
+      }, [this.sidebarHide]);
 
     return $("<main>")
       .addClass(
@@ -62,7 +59,8 @@ class DocsPage extends MC {
             currentContent === "start" && $.MC(StartContent),
             currentContent === "install" && $.MC(InstallContent),
             currentContent === "philosophy" && $.MC(PhilosophyContent),
-            currentContent === "fast_start" && $.MC(FastStartContent)
+            currentContent === "fast_start" && $.MC(FastStartContent),
+            currentContent === 'stateAndRnd' && $.MC(StateAndRender),
           ),
         // вынести навигацию в отдельный компонент
         $("<div>")

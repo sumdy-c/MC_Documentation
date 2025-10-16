@@ -152,7 +152,7 @@ class HelloDeveloper extends MC {
 }
 
 // Использование
-$.MC(HelloDeveloper, { name: "Имя" });`)
+$.MC(HelloDeveloper, { name: "Ваше имя" });`)
                         )
                       )
                   ),

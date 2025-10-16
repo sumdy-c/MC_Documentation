@@ -7,7 +7,6 @@ declare namespace MC {
 	function createState(value: any, key: string): MCState;
 	function uState(value: any, key: string, notUpdate?: boolean): MCState;
 	function uContext(key: string): MCcontext;
-	function createLocallyState(value: any, key: string, component: any): MCState;
 	function createContext(key: string): MCcontext;
 	function Props(
 		propsObject: Record<string, any>

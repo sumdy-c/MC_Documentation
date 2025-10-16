@@ -34,9 +34,6 @@ class AppDocs extends MC {
   render(states) {
     const [page, blackMirror] = states.local;
 
-    // Есть проблема с effect
-    // Если есть зависимости = он не должен обновляться без их триггера. Только от них
-    // Есть зависимостей НЕТ - только единожды
     $.MC.effect(([sidebarHideStateGlobal]) => {
       localStorage.setItem("sidebarHide", sidebarHideStateGlobal);
     }, [this.sidebarHideStateGlobal]);
