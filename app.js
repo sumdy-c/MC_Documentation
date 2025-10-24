@@ -1,9 +1,9 @@
-import Main from './pages/main.js';
+import Main from "./pages/main.js";
 
 export default class App extends MC {
-  page;
-
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
 
   render() {
     return $("<div>").append($.MC(Main));
