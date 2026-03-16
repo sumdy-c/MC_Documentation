@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <!-- lib (глобальные) -->
-  <script src="./lib/jquery-3.7.1.min.js"></script>
-  <script src="./lib/MC.min.js"></script>
-
-  <script type="module">
-    import App from './app.js';
-
-    // Инициализация MC (глобальная функция/объект)
-    MC.init();
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // $ доступен глобально
-      $("#root").append($.MC(App));
-    });
-  </script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/jquery-micro_component/MC.min.js"></script>
+  <!-- styles -->
+   <link rel="stylesheet" href="./pages/main/mc-docs-home.css">
   <title>MCv7</title>
 </head>
 <body>
   <div id="root"></div>
+
+  <script type="module">
+    import App from "./app.js";
+    
+    MC.init();
+
+    $('#root').append(
+      $.MC(App)
+    );
+  </script>
 </body>
 </html>
