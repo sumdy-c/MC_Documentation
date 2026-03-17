@@ -111,4 +111,3 @@ export default class DocEffectsPage extends MC {
       );
   }
 }
-
