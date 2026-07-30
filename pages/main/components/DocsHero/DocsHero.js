@@ -12,7 +12,7 @@ export default class DocsHero extends MC {
           .append(
             $("<div>")
               .addClass("mc-docs_eyebrow")
-              .text("INTERNAL DOCUMENTATION / MC RUNTIME"),
+              .text("PUBLIC DOCUMENTATION / MC RUNTIME"),
             $("<h1>")
               .addClass("mc-docs_title")
               .append(

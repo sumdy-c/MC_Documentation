@@ -6,7 +6,7 @@ export default class DocsFooter extends MC {
 				$('<div>').addClass('mc-docs_footer-line'),
 				$('<div>')
 					.addClass('mc-docs_footer-text')
-					.text('MC documentation — internal runtime overview')
+					.text('MC documentation — public runtime guide')
 			);
 	}
 }

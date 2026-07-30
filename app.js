@@ -6,6 +6,10 @@ const APP_PAGE_STORAGE_KEY = "mc-doc-page";
 const APP_PAGES = new Set(["main", "doc", "architecture"]);
 
 function getInitialPage() {
+  if (window.location.hash) {
+    return "doc";
+  }
+
   try {
     const savedPage = localStorage.getItem(APP_PAGE_STORAGE_KEY);
     return APP_PAGES.has(savedPage) ? savedPage : "main";

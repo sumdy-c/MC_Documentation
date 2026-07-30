@@ -204,7 +204,7 @@ export default class Architecture extends MC {
                 $("<div>")
                   .addClass("mc-arch-topbar_badges")
                   .append(
-                    $("<span>").addClass("mc-arch-badge").text("MC v7.14"),
+                    $("<span>").addClass("mc-arch-badge").text("MC v8.1"),
                     $("<span>").addClass("mc-arch-badge").text("UI Update Lifecycle"),
                     $("<span>").addClass("mc-arch-badge mc-arch-badge--warn").text("code-based"),
                   ),

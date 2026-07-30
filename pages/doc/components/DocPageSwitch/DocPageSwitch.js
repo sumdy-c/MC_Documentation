@@ -1,28 +1,24 @@
-import DocComponentsPage from "./components/DocComponentsPage.js";
-import DocEffectsPage from "./components/DocEffectsPage.js";
-import DocInstallPage from "./components/DocInstallPage.js";
-import DocLifecyclePage from "./components/DocLifecyclePage.js";
-import DocOverviewPage from "./components/DocOverviewPage.js";
-import DocStatePage from "./components/DocStatePage.js";
+import DocContentPage from "./components/DocContentPage.js";
 
 export default class DocPageSwitch extends MC {
-  render({}, { section }) {
-    let page = null;
+  render({}, { section, pages = [], setSection }) {
+    const pageIndex = Math.max(
+      pages.findIndex((page) => page.id === section),
+      0,
+    );
+    const page = pages[pageIndex] || pages[0];
 
-    if (section === "installation") {
-      page = $.MC(DocInstallPage, {}, "doc-install-page");
-    } else if (section === "components") {
-      page = $.MC(DocComponentsPage, {}, "doc-components-page");
-    } else if (section === "state") {
-      page = $.MC(DocStatePage, {}, "doc-state-page");
-    } else if (section === "effects") {
-      page = $.MC(DocEffectsPage, {}, "doc-effects-page");
-    } else if (section === "lifecycle") {
-      page = $.MC(DocLifecyclePage, {}, "doc-lifecycle-page");
-    } else {
-      page = $.MC(DocOverviewPage, {}, "doc-overview-page");
-    }
-
-    return $("<div>").append(page);
+    return $("<div>").append(
+      $.MC(
+        DocContentPage,
+        {
+          page,
+          previousPage: pages[pageIndex - 1] || null,
+          nextPage: pages[pageIndex + 1] || null,
+          setSection,
+        },
+        `doc-content-${page.id}`,
+      ),
+    );
   }
 }

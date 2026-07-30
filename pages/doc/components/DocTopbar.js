@@ -1,14 +1,22 @@
 export default class DocTopbar extends MC {
-  render({}, { setPage, section = "overview" }) {
-    const sectionTitle = section;
-
+  render(
+    {},
+    { setPage, sectionTitle = "Документация", sectionGroup = "MC" },
+  ) {
     return $("<div>")
       .addClass("mc-doc-topbar mc-doc-anim-in")
       .append(
         $("<button>")
           .addClass("mc-doc-back-btn")
           .attr("type", "button")
-          .on("click", () => setPage("main"))
+          .on("click", () => {
+            window.history.replaceState(
+              null,
+              "",
+              `${window.location.pathname}${window.location.search}`,
+            );
+            setPage("main");
+          })
           .append(
             $("<span>").addClass("mc-doc-back-btn_text").text("Back to main"),
           ),
@@ -19,7 +27,7 @@ export default class DocTopbar extends MC {
             $("<span>").addClass("mc-doc-breadcrumbs_sep").text("/"),
             $("<span>")
               .addClass("mc-doc-breadcrumbs_item")
-              .text("Documentation"),
+              .text(sectionGroup),
             $("<span>").addClass("mc-doc-breadcrumbs_sep").text("/"),
             $("<span>")
               .addClass(
